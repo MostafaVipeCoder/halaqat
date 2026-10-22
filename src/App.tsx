@@ -31,6 +31,7 @@ const AdminSettings = lazy(() => import('./components/dashboard/admin/AdminSetti
 const DashboardOverview = lazy(() => import('./components/dashboard/DashboardOverview'));
 const FinancialReports = lazy(() => import('./components/dashboard/FinancialReports'));
 const PerformanceReports = lazy(() => import('./components/dashboard/PerformanceReports'));
+const Recitations = lazy(() => import('./components/dashboard/Recitations'));
 
 // Auth Guard Components
 const ProtectedRoute = ({
@@ -162,6 +163,7 @@ function App() {
                 <Route path="classes" element={<Classes />} />
                 <Route path="classes/:id" element={<ClassDetails />} />
                 <Route path="grades" element={<Grades />} />
+                <Route path="recitations" element={<Recitations />} />
                 <Route path="payments" element={<Payments />} />
                 <Route path="reports" element={<Reports />} />
                 <Route path="performance" element={<PerformanceReports />} />

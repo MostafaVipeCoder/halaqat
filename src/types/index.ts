@@ -89,6 +89,55 @@ export interface Payment {
     updated_at: string;
 }
 
+// Memorization Types (الحفظ والتسميع)
+export type RecitationType = 'new' | 'minor_review' | 'major_review' | 'consolidation';
+export type RecitationGrade = 'excellent' | 'very_good' | 'good' | 'acceptable' | 'repeat';
+
+export interface RecitationSession {
+    id: string;
+    school_id: string;
+    student_id: string;
+    class_id?: string | null;
+    session_date: string;
+    type: RecitationType;
+    from_surah: number;
+    from_ayah: number;
+    to_surah: number;
+    to_ayah: number;
+    pages: number;
+    memorization_errors: number;
+    tashkeel_errors: number;
+    tajweed_errors: number;
+    hints: number;
+    grade: RecitationGrade;
+    teacher_name?: string | null;
+    notes?: string | null;
+    recorded_by?: string;
+    created_at: string;
+    students?: {
+        id: string;
+        name: string;
+        class_id?: string;
+        classes?: { name: string } | null;
+    } | null;
+}
+
+export interface MemorizationPlan {
+    id: string;
+    school_id: string;
+    student_id: string;
+    direction: 'forward' | 'backward';
+    daily_amount: number;
+    amount_unit: 'lines' | 'pages' | 'quarters';
+    daily_review_pages: number;
+    target_juz_count?: number | null;
+    target_date?: string | null;
+    baseline_surahs: number[];
+    notes?: string | null;
+    created_at: string;
+    updated_at: string;
+}
+
 // Admin Types
 export interface AdminStats {
     totalSchools: number;

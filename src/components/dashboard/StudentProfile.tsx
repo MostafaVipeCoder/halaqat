@@ -5,7 +5,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui/tabs';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '../ui/dialog';
 import { Label } from '../ui/label';
 import { Input } from '../ui/input';
-import { Calendar, History, CreditCard, GraduationCap, Printer } from 'lucide-react';
+import { Calendar, History, CreditCard, GraduationCap, Printer, BookOpen } from 'lucide-react';
 import { toast } from 'sonner';
 import { useStudents } from '../../hooks/useStudents';
 import { useAttendance } from '../../hooks/useAttendance';
@@ -23,6 +23,7 @@ import QuickActionsToolbar from './QuickActionsToolbar';
 import AttendanceTab from './AttendanceTab';
 import PaymentsTab from './PaymentsTab';
 import SuspensionsTab from './SuspensionsTab';
+import MemorizationTab from './MemorizationTab';
 
 
 
@@ -54,7 +55,7 @@ export default function StudentProfile() {
     });
 
     // Tab state
-    const [activeTab, setActiveTab] = useState('attendance');
+    const [activeTab, setActiveTab] = useState('memorization');
 
     const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
     const [isPaymentDialogOpen, setIsPaymentDialogOpen] = useState(false);
@@ -296,8 +297,12 @@ export default function StudentProfile() {
             />
 
             {/* 3. Main Content Tabs */}
-            <Tabs defaultValue="attendance" value={activeTab} onValueChange={setActiveTab} className="w-full">
-                <TabsList className="grid w-full grid-cols-3 mb-8 bg-white border p-1 h-auto">
+            <Tabs defaultValue="memorization" value={activeTab} onValueChange={setActiveTab} className="w-full">
+                <TabsList className="mz grid w-full grid-cols-4 mb-8 bg-white border p-1 h-auto">
+                    <TabsTrigger value="memorization" className="data-[state=active]:bg-emerald-50 data-[state=active]:text-emerald-700 py-2.5">
+                        <BookOpen className="h-4 w-4 ml-2" />
+                        الحفظ
+                    </TabsTrigger>
                     <TabsTrigger value="attendance" className="data-[state=active]:bg-orange-50 data-[state=active]:text-orange-700 py-2.5">
                         <Calendar className="h-4 w-4 ml-2" />
                         <span className="hidden md:inline">سجل</span> الحضور
@@ -311,6 +316,10 @@ export default function StudentProfile() {
                         السلوك
                     </TabsTrigger>
                 </TabsList>
+
+                <TabsContent value="memorization">
+                    <MemorizationTab student={student} />
+                </TabsContent>
 
                 <TabsContent value="attendance" className="animate-in fade-in-50 duration-300 slide-in-from-bottom-2">
                     <AttendanceTab attendanceRecords={studentAttendance} stats={stats} studentClass={studentClass} />

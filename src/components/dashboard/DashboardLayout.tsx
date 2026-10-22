@@ -4,7 +4,7 @@ import { Button } from '../ui/button';
 import {
   GraduationCap, Users, School, Award, FileText, LogOut, Menu, User,
   DollarSign, QrCode, Settings, LayoutDashboard, ChevronDown, ChevronRight,
-  BarChart3, Wallet, ShieldAlert
+  BarChart3, Wallet, ShieldAlert, BookOpen
 } from 'lucide-react';
 import ProtectedOverlay from './ProtectedOverlay';
 import { useSettings } from '../../hooks/useSettings';
@@ -33,13 +33,19 @@ interface MenuItem {
 export default function DashboardLayout({ onLogout, isVerified, userEmail, onVerify }: DashboardLayoutProps) {
   const location = useLocation();
   const [isSheetOpen, setIsSheetOpen] = useState(false);
-  const [expandedSections, setExpandedSections] = useState<string[]>(['الرئيسية', 'إدارة الطلاب']);
+  const [expandedSections, setExpandedSections] = useState<string[]>(['الرئيسية', 'التحفيظ', 'إدارة الطلاب']);
 
   const menuSections: MenuSection[] = [
     {
       title: 'الرئيسية',
       items: [
         { name: 'لوحة التحكم', icon: LayoutDashboard, path: '/dashboard' },
+      ]
+    },
+    {
+      title: 'التحفيظ',
+      items: [
+        { name: 'الحفظ والتسميع', icon: BookOpen, path: '/dashboard/recitations' },
       ]
     },
     {
