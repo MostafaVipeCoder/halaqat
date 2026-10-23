@@ -109,7 +109,7 @@ function App() {
     localStorage.clear();
     setIsAuthenticated(false);
     setUserRole(null);
-    window.location.replace('/login');
+    window.location.replace(`${import.meta.env.BASE_URL}login`);
   };
 
   if (loading) {
@@ -125,7 +125,7 @@ function App() {
 
   return (
     <div dir="rtl" className="min-h-screen bg-white">
-      <Router>
+      <Router basename={import.meta.env.BASE_URL.replace(/\/$/, '')}>
         <Suspense fallback={<LoadingSpinner />}>
           <Routes>
             {/* Public Routes */}

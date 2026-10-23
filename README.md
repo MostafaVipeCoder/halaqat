@@ -4,6 +4,8 @@
 
 A multi-tenant SaaS for Quran memorization schools, built with React, Vite and Supabase.
 
+**النسخة المنشورة:** https://mostafavipecoder.github.io/halaqat/ — تُنشر تلقائيًا على GitHub Pages مع كل push على `main` (المسار الأساسي `/halaqat/` مضبوط في `vite.config.ts`).
+
 ## المميزات
 
 - **الحفظ والتسميع**: خطة حفظ لكل طالب، تسجيل جلسات التسميع (حفظ جديد / مراجعة / تثبيت) بالأخطاء والتقدير، اقتراح الورد التالي تلقائيًا، وخريطة حفظ للأجزاء والسور.

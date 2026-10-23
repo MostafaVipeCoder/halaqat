@@ -64,7 +64,7 @@
       },
       "scripts": {
             "dev": "vite",
-            "build": "vite build",
+            "build": "vite build && node -e \"require('fs').copyFileSync('build/index.html','build/404.html')\"",
             "build:utilities-css": "tailwindcss -i src/styles/utilities.tailwind.css -o src/styles/utilities.css && node scripts/scope-utilities-css.mjs"
       }
 }
