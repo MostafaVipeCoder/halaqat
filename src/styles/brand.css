@@ -1,0 +1,96 @@
+/*
+ * هوية منصة "حلقات"
+ * Unlayered on purpose: these declarations win over the theme layer of the
+ * prebuilt index.css, so existing Tailwind classes pick up the brand.
+ *
+ * The app's components use the `orange-*` scale as their accent color.
+ * That scale is remapped here to the brand turquoise, so `bg-orange-500`
+ * means "brand accent" everywhere without touching ~300 class names.
+ *
+ * Contrast: the bright brand turquoise #1FA6A0 is only 2.99:1 with white, so it
+ * is kept for decoration (logo, 400). Interactive fills and accent text use the
+ * deeper 500 (#0F7A75): 5.17:1 with white text, 4.85:1 on the paper background.
+ */
+:root {
+    --brand-navy-950: #0B2340;
+    --brand-navy-900: #12355B;
+    --brand-navy-800: #1A4573;
+    --brand-navy-700: #245687;
+    --brand-turquoise: #1FA6A0;
+    --brand-turquoise-light: #6FD3CB;
+    --brand-paper: #F5F8FA;
+    --brand-ink: #14202B;
+
+    --color-orange-50: #EDFAF8;
+    --color-orange-100: #D2F3EF;
+    --color-orange-200: #A6E6E0;
+    --color-orange-300: #6FD3CB;
+    --color-orange-400: #3FBDB5;
+    --color-orange-500: #0F7A75;
+    --color-orange-600: #0B625E;
+    --color-orange-700: #0A5552;
+    --color-orange-800: #094744;
+    --color-orange-900: #083B39;
+
+    --color-gray-50: #F5F8FA;
+
+    --font-sans: "IBM Plex Sans Arabic", ui-sans-serif, system-ui, sans-serif;
+}
+
+body {
+    font-family: var(--font-sans);
+    color: var(--brand-ink);
+    background-color: var(--brand-paper);
+}
+
+/* Navy surfaces: sidebars and auth screens */
+.brand-surface {
+    background-color: var(--brand-navy-900);
+}
+
+.brand-surface-deep {
+    background-color: var(--brand-navy-950);
+}
+
+.brand-auth-bg {
+    background-color: var(--brand-navy-950);
+    background-image:
+        radial-gradient(circle at 85% 10%, rgb(31 166 160 / 0.22), transparent 45%),
+        radial-gradient(circle at 10% 90%, rgb(36 86 135 / 0.55), transparent 50%);
+}
+
+/* Sidebar links: 40px rows (py-2.5 is missing from the prebuilt bundle) */
+.brand-nav-item {
+    min-height: 40px;
+    padding-block: 10px;
+}
+
+h1 {
+    line-height: 1.5;
+}
+
+.brand-nav-link:hover {
+    background-color: var(--brand-navy-800);
+    color: #FFFFFF;
+}
+
+.brand-divider {
+    border-color: rgb(255 255 255 / 0.08);
+}
+
+.brand-wordmark {
+    font-weight: 700;
+    font-size: 1.125rem;
+    line-height: 1.2;
+    letter-spacing: 0;
+}
+
+.brand-subtitle {
+    font-size: 0.75rem;
+    line-height: 1.3;
+    color: var(--brand-turquoise-light);
+}
+
+.brand-wordmark-lg {
+    font-size: 1.75rem;
+}

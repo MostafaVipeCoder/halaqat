@@ -91,7 +91,7 @@ export default function AdminPackages() {
     return (
         <div className="space-y-6 text-right" dir="rtl">
             <div className="flex justify-between items-center">
-                <Button onClick={() => { setIsEditing(true); setCurrentPackage({}); }} className="bg-orange-500 hover:bg-orange-600 text-black">
+                <Button onClick={() => { setIsEditing(true); setCurrentPackage({}); }} className="bg-orange-500 hover:bg-orange-600 text-white">
                     <Plus className="ml-2 h-4 w-4" />
                     إضافة باقة جديدة
                 </Button>
@@ -190,7 +190,7 @@ export default function AdminPackages() {
                                 />
                             </div>
                             <div className="flex gap-3 pt-4">
-                                <Button onClick={handleSave} className="flex-1 bg-orange-500 hover:bg-orange-600 text-black">حفظ</Button>
+                                <Button onClick={handleSave} className="flex-1 bg-orange-500 hover:bg-orange-600 text-white">حفظ</Button>
                                 <Button onClick={() => setIsEditing(false)} variant="ghost" className="flex-1 text-gray-600 hover:text-gray-900 hover:bg-gray-100">إلغاء</Button>
                             </div>
                         </CardContent>

@@ -72,7 +72,7 @@ export default function AdminSettings() {
                 <Button
                     onClick={handleSave}
                     disabled={isSaving}
-                    className="bg-orange-500 hover:bg-orange-600 text-black font-bold gap-2"
+                    className="bg-orange-500 hover:bg-orange-600 text-white font-bold gap-2"
                 >
                     {isSaving ? <RefreshCcw className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
                     حفظ التغييرات

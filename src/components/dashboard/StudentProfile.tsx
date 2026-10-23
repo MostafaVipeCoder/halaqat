@@ -457,13 +457,13 @@ export default function StudentProfile() {
                                 </Select>
                             </div>
                             <div className="space-y-2">
-                                <Label htmlFor="edit-class">الفصل</Label>
+                                <Label htmlFor="edit-class">الحلقة</Label>
                                 <Select
                                     value={formData.class_id}
                                     onValueChange={(value) => setFormData({ ...formData, class_id: value })}
                                 >
                                     <SelectTrigger id="edit-class">
-                                        <SelectValue placeholder="اختر الفصل" />
+                                        <SelectValue placeholder="اختر الحلقة" />
                                     </SelectTrigger>
                                     <SelectContent>
                                         {classes.map((cls: Class) => (
@@ -478,7 +478,7 @@ export default function StudentProfile() {
                     </div>
                     <DialogFooter>
                         <Button variant="outline" onClick={() => setIsEditDialogOpen(false)}>إلغاء</Button>
-                        <Button onClick={handleEditStudent} className="bg-orange-500 hover:bg-orange-600 text-black">
+                        <Button onClick={handleEditStudent} className="bg-orange-500 hover:bg-orange-600 text-white">
                             حفظ التغييرات
                         </Button>
                     </DialogFooter>
@@ -489,9 +489,9 @@ export default function StudentProfile() {
             <Dialog open={isSuspendDialogOpen} onOpenChange={setIsSuspendDialogOpen}>
                 <DialogContent className="sm:max-w-[425px]" onInteractOutside={(e: any) => e.preventDefault()}>
                     <DialogHeader>
-                        <DialogTitle>تسجيل قرار فصل طالب</DialogTitle>
+                        <DialogTitle>تسجيل إجراء إداري</DialogTitle>
                         <DialogDescription>
-                            يرجى تحديد مدة الفصل وسبب هذا الإجراء الإداري للطالب {student.name}.
+                            يرجى تحديد نوع الإجراء وسببه للطالب {student.name}.
                         </DialogDescription>
                     </DialogHeader>
                     <div className="grid gap-4 py-4">
@@ -503,10 +503,10 @@ export default function StudentProfile() {
                                 value={suspensionForm.status}
                                 onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setSuspensionForm({ ...suspensionForm, status: e.target.value as any })}
                             >
-                                <option value="warning">تحذير (Warning)</option>
-                                <option value="parent_notification">تنبيه ولي الأمر (Parent Notification)</option>
-                                <option value="suspension">وقف مؤقت (Suspension)</option>
-                                <option value="expelled">فصل نهائي (Expulsion)</option>
+                                <option value="warning">تحذير</option>
+                                <option value="parent_notification">تنبيه ولي الأمر</option>
+                                <option value="suspension">إيقاف مؤقت</option>
+                                <option value="expelled">فصل نهائي</option>
                             </select>
                         </div>
                         {suspensionForm.status === 'suspension' && (

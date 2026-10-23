@@ -4,7 +4,8 @@ import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { Label } from '../ui/label';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '../ui/card';
-import { GraduationCap, Mail, Lock } from 'lucide-react';
+import { Mail, Lock } from 'lucide-react';
+import Logo from '../brand/Logo';
 import { toast } from 'sonner';
 import { supabase } from '../../lib/supabase';
 
@@ -57,14 +58,11 @@ export default function Login({ onLogin }: LoginProps) {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-black to-gray-900 flex items-center justify-center p-4">
+    <div className="min-h-screen brand-auth-bg flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <Link to="/" className="inline-flex items-center gap-2 mb-6">
-            <div className="bg-orange-500 p-3 rounded-lg">
-              <GraduationCap className="h-8 w-8 text-black" />
-            </div>
-            <span className="text-white text-2xl">منصة التعليم</span>
+            <Logo size={56} subtitle="إدارة مدارس تحفيظ القرآن" wordmarkClassName="brand-wordmark-lg" />
           </Link>
         </div>
 
@@ -120,7 +118,7 @@ export default function Login({ onLogin }: LoginProps) {
 
               <Button
                 type="submit"
-                className="w-full bg-orange-500 hover:bg-orange-600 text-black"
+                className="w-full bg-orange-500 hover:bg-orange-600 text-white"
                 disabled={loading}
               >
                 {loading ? 'جاري الدخول...' : 'تسجيل الدخول'}

@@ -43,13 +43,13 @@ export const useClasses = () => {
             return { previousClasses };
         },
         onError: (err, newClass, context) => {
-            toast.error('فشل إضافة الفصل');
+            toast.error('فشل إضافة الحلقة');
             if (context?.previousClasses) {
                 queryClient.setQueryData(['classes'], context.previousClasses);
             }
         },
         onSuccess: () => {
-            toast.success('تم إضافة الفصل بنجاح');
+            toast.success('تم إضافة الحلقة بنجاح');
         },
         onSettled: () => {
             queryClient.invalidateQueries({ queryKey: ['classes'] });
@@ -62,26 +62,26 @@ export const useClasses = () => {
         mutationFn: ({ id, data }: { id: string; data: Partial<Class> }) =>
             classService.update(id, data),
         onSuccess: () => {
-            toast.success('تم تعديل بيانات الفصل بنجاح');
+            toast.success('تم تعديل بيانات الحلقة بنجاح');
             queryClient.invalidateQueries({ queryKey: ['classes'] });
         },
         onError: () => {
-            toast.error('فشل تعديل بيانات الفصل');
+            toast.error('فشل تعديل بيانات الحلقة');
         }
     });
 
     const deleteClassMutation = useMutation({
         mutationFn: classService.delete,
         onSuccess: () => {
-            toast.success('تم حذف الفصل بنجاح');
+            toast.success('تم حذف الحلقة بنجاح');
             queryClient.invalidateQueries({ queryKey: ['classes'] });
             queryClient.invalidateQueries({ queryKey: ['grades'] });
         },
         onError: (error: any) => {
             if (error?.code === '23503') {
-                toast.error('لا يمكن حذف هذا الفصل لأنه يحتوي على طلاب مسجلين');
+                toast.error('لا يمكن حذف هذه الحلقة لأنها تحتوي على طلاب مسجلين');
             } else {
-                toast.error('فشل حذف الفصل');
+                toast.error('فشل حذف الحلقة');
             }
         }
     });

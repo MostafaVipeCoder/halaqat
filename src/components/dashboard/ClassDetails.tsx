@@ -163,12 +163,12 @@ export default function ClassDetails() {
                 student_id: studentId,
                 date: todayStr,
                 present: !currentPresent,
-                notes: !currentPresent && isUnscheduled ? 'يوم إضافي' : 'تحديث يدوي من صفحة الفصل'
+                notes: !currentPresent && isUnscheduled ? 'يوم إضافي' : 'تحديث يدوي من صفحة الحلقة'
             });
 
             if (!currentPresent && isUnscheduled) {
                 toast.info('ℹ️ تم تسجيل حضور (يوم إضافي)', {
-                    description: 'هذا اليوم ليس من أيام الحضور المجدولة لهذا الفصل'
+                    description: 'هذا اليوم ليس من أيام الحضور المجدولة لهذه الحلقة'
                 });
             } else {
                 toast.success(!currentPresent ? 'تم تسجيل الحضور' : 'تم تسجيل الغياب');
@@ -219,8 +219,8 @@ export default function ClassDetails() {
     if (!effectiveClass) {
         return (
             <div className="text-center py-12">
-                <h2 className="text-xl font-bold mb-4">الفصل غير موجود</h2>
-                <Button onClick={() => navigate('/dashboard/classes')}>العودة للفصول</Button>
+                <h2 className="text-xl font-bold mb-4">الحلقة غير موجودة</h2>
+                <Button onClick={() => navigate('/dashboard/classes')}>العودة للحلقات</Button>
             </div>
         );
     }
@@ -237,12 +237,12 @@ export default function ClassDetails() {
                         <h2 className="text-2xl font-bold text-black mb-1">
                             {effectiveClass.name} - {effectiveClass.grade_level}
                         </h2>
-                        <p className="text-gray-600">طلاب الفصل وإحصائيات الحضور</p>
+                        <p className="text-gray-600">طلاب الحلقة وإحصائيات الحضور</p>
                     </div>
                 </div>
-                <Button onClick={() => { resetForm(); setIsAddDialogOpen(true); }} className="bg-orange-500 hover:bg-orange-600 text-black">
+                <Button onClick={() => { resetForm(); setIsAddDialogOpen(true); }} className="bg-orange-500 hover:bg-orange-600 text-white">
                     <Plus className="ml-2 h-4 w-4" />
-                    إضافة طالب للفصل
+                    إضافة طالب للحلقة
                 </Button>
             </div>
 
@@ -407,9 +407,9 @@ export default function ClassDetails() {
             <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
                 <DialogContent className="sm:max-w-[500px]" onInteractOutside={(e) => e.preventDefault()}>
                     <DialogHeader>
-                        <DialogTitle>إضافة طالب جديد للفصل</DialogTitle>
+                        <DialogTitle>إضافة طالب جديد للحلقة</DialogTitle>
                         <DialogDescription>
-                            أدخل بيانات الطالب الجديد أدناه. سيتم تعيينه لهذا الفصل تلقائياً.
+                            أدخل بيانات الطالب الجديد أدناه. سيتم تعيينه لهذه الحلقة تلقائياً.
                         </DialogDescription>
                     </DialogHeader>
                     <div className="grid gap-4 py-4">
@@ -484,7 +484,7 @@ export default function ClassDetails() {
                     </div>
                     <DialogFooter>
                         <Button variant="outline" onClick={() => setIsAddDialogOpen(false)}>إلغاء</Button>
-                        <Button onClick={handleAddStudent} className="bg-orange-500 hover:bg-orange-600 text-black">
+                        <Button onClick={handleAddStudent} className="bg-orange-500 hover:bg-orange-600 text-white">
                             حفظ الطالب
                         </Button>
                     </DialogFooter>
@@ -563,13 +563,13 @@ export default function ClassDetails() {
                                 </Select>
                             </div>
                             <div className="space-y-2">
-                                <Label htmlFor="edit-class">الفصل</Label>
+                                <Label htmlFor="edit-class">الحلقة</Label>
                                 <Select
                                     value={formData.class_id}
                                     onValueChange={(value) => setFormData({ ...formData, class_id: value })}
                                 >
                                     <SelectTrigger id="edit-class">
-                                        <SelectValue placeholder="اختر الفصل" />
+                                        <SelectValue placeholder="اختر الحلقة" />
                                     </SelectTrigger>
                                     <SelectContent>
                                         {classes.map((cls: Class) => (
@@ -584,7 +584,7 @@ export default function ClassDetails() {
                     </div>
                     <DialogFooter>
                         <Button variant="outline" onClick={() => setIsEditDialogOpen(false)}>إلغاء</Button>
-                        <Button onClick={handleEditStudent} className="bg-orange-500 hover:bg-orange-600 text-black">
+                        <Button onClick={handleEditStudent} className="bg-orange-500 hover:bg-orange-600 text-white">
                             حفظ التغييرات
                         </Button>
                     </DialogFooter>

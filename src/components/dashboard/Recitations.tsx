@@ -105,15 +105,15 @@ export default function Recitations() {
                     <h1 className="text-2xl font-bold text-gray-900">الحفظ والتسميع</h1>
                     <p className="text-gray-500 mt-1">متابعة تسميع الطلاب اليومي والحفظ الجديد والمراجعة</p>
                 </div>
-                <Button onClick={() => openDialog()} className="bg-orange-500 hover:bg-orange-600 text-black">
+                <Button onClick={() => openDialog()} className="bg-orange-500 hover:bg-orange-600 text-white">
                     <Plus className="h-4 w-4 ml-2" />
                     تسجيل تسميع
                 </Button>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
                 <KPICard label="تسميعات اليوم" value={stats.todayCount} icon={BookOpen} color="orange" />
-                <KPICard label="طلاب سمّعوا اليوم" value={`${stats.recitedToday} / ${students.length}`} icon={Users} color="blue" />
+                <KPICard label="طلاب سمّعوا اليوم" value={`${stats.recitedToday} من ${students.length}`} icon={Users} color="blue" />
                 <KPICard label="صفحات حفظ جديد اليوم" value={stats.newPagesToday} icon={BookOpenCheck} color="green" />
                 <KPICard label="نسبة الإعادة" value={stats.repeatRate} suffix="%" icon={RotateCcw} color="red" />
             </div>
@@ -179,12 +179,12 @@ export default function Recitations() {
                                                                 ))}
                                                             </div>
                                                         ) : (
-                                                            <p className="text-xs text-gray-400 mt-0.5">لم يسمّع بعد</p>
+                                                            <p className="text-xs text-gray-500 mt-0.5">لم يسمّع بعد</p>
                                                         )}
                                                     </div>
                                                 </div>
                                                 <Button size="sm" variant={recited.length ? 'outline' : 'default'} onClick={() => openDialog(student.id)}
-                                                    className={recited.length ? '' : 'bg-orange-500 hover:bg-orange-600 text-black'}>
+                                                    className={recited.length ? '' : 'bg-orange-500 hover:bg-orange-600 text-white'}>
                                                     <Plus className="h-4 w-4 ml-1" />
                                                     {recited.length ? 'تسميع آخر' : 'سجّل التسميع'}
                                                 </Button>
@@ -203,7 +203,7 @@ export default function Recitations() {
                             <CardTitle>سجل التسميع</CardTitle>
                             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 pt-2">
                                 <div className="relative lg:col-span-1">
-                                    <Search className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+                                    <Search className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-500" />
                                     <Input placeholder="بحث باسم الطالب" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="pr-9" />
                                 </div>
                                 <Select value={filterClass} onValueChange={setFilterClass}>
@@ -265,7 +265,7 @@ export default function Recitations() {
                                                         <Link to={`/dashboard/students/${s.student_id}`} className="font-medium hover:text-orange-600">
                                                             {s.students?.name || '-'}
                                                         </Link>
-                                                        <div className="text-xs text-gray-400">{s.students?.classes?.name || ''}</div>
+                                                        <div className="text-xs text-gray-500">{s.students?.classes?.name || ''}</div>
                                                     </TableCell>
                                                     <TableCell><Badge variant="outline" className={typeMeta(s.type).className}>{typeMeta(s.type).label}</Badge></TableCell>
                                                     <TableCell className="whitespace-nowrap">

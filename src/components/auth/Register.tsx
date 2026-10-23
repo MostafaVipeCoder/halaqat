@@ -4,7 +4,8 @@ import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { Label } from '../ui/label';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '../ui/card';
-import { GraduationCap, User, Mail, Phone, Lock } from 'lucide-react';
+import { User, Mail, Phone, Lock } from 'lucide-react';
+import Logo from '../brand/Logo';
 import { toast } from 'sonner';
 import { supabase } from '../../lib/supabase';
 
@@ -66,14 +67,11 @@ export default function Register({ onRegister }: RegisterProps) {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-black to-gray-900 flex items-center justify-center p-4">
+    <div className="min-h-screen brand-auth-bg flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <Link to="/" className="inline-flex items-center gap-2 mb-6">
-            <div className="bg-orange-500 p-3 rounded-lg">
-              <GraduationCap className="h-8 w-8 text-black" />
-            </div>
-            <span className="text-white text-2xl">منصة التعليم</span>
+            <Logo size={56} subtitle="إدارة مدارس تحفيظ القرآن" wordmarkClassName="brand-wordmark-lg" />
           </Link>
         </div>
 

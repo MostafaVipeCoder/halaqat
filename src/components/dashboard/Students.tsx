@@ -135,7 +135,7 @@ export default function Students() {
 
   const handleAddStudent = async () => {
     if (!formData.name || !formData.phone || !formData.guardian_name || !formData.guardian_phone || !formData.class_id) {
-      toast.error('الرجاء ملء جميع الحقول المطلوبة واختيار الفصل');
+      toast.error('الرجاء ملء جميع الحقول المطلوبة واختيار الحلقة');
       return;
     }
 
@@ -191,11 +191,11 @@ export default function Students() {
         data: { class_id: formData.class_id }
       });
 
-      toast.success('تم تعيين الفصل بنجاح');
+      toast.success('تم تعيين الحلقة بنجاح');
       setIsAssignDialogOpen(false);
     } catch (error) {
       console.error(error);
-      toast.error('فشل تعيين الفصل');
+      toast.error('فشل تعيين الحلقة');
     }
   };
 
@@ -249,7 +249,7 @@ export default function Students() {
           <h1 className="text-2xl font-bold text-gray-900">جميع الطلاب</h1>
           <p className="text-gray-500">عرض وإدارة جميع الطلاب المسجلين في النظام</p>
         </div>
-        <Button onClick={() => { resetForm(); setIsAddDialogOpen(true); }} className="bg-orange-500 hover:bg-orange-600 text-black">
+        <Button onClick={() => { resetForm(); setIsAddDialogOpen(true); }} className="bg-orange-500 hover:bg-orange-600 text-white">
           <Plus className="ml-2 h-4 w-4" />
           إضافة طالب جديد
         </Button>
@@ -329,7 +329,7 @@ export default function Students() {
               <TableHeader>
                 <TableRow>
                   <TableHead className="text-right">اسم الطالب</TableHead>
-                  <TableHead className="text-right">الفصل</TableHead>
+                  <TableHead className="text-right">الحلقة</TableHead>
                   <TableHead className="text-right">ولي الأمر</TableHead>
                   <TableHead className="text-right">رقم الهاتف</TableHead>
                   <TableHead className="text-right">حالة الرسوم</TableHead>
@@ -566,13 +566,13 @@ export default function Students() {
                 </Select>
               </div>
               <div className="space-y-2">
-                <Label htmlFor="class">الفصل</Label>
+                <Label htmlFor="class">الحلقة</Label>
                 <Select
                   value={formData.class_id}
                   onValueChange={(value) => setFormData({ ...formData, class_id: value })}
                 >
                   <SelectTrigger id="class">
-                    <SelectValue placeholder="اختر الفصل" />
+                    <SelectValue placeholder="اختر الحلقة" />
                   </SelectTrigger>
                   <SelectContent>
                     {availableClasses.map((cls) => (
@@ -587,7 +587,7 @@ export default function Students() {
           </div>
           <DialogFooter>
             <Button variant="outline" onClick={() => setIsAddDialogOpen(false)}>إلغاء</Button>
-            <Button onClick={handleAddStudent} className="bg-orange-500 hover:bg-orange-600 text-black">
+            <Button onClick={handleAddStudent} className="bg-orange-500 hover:bg-orange-600 text-white">
               حفظ الطالب
             </Button>
           </DialogFooter>
@@ -668,13 +668,13 @@ export default function Students() {
                 </Select>
               </div>
               <div className="space-y-2">
-                <Label htmlFor="edit-class">الفصل</Label>
+                <Label htmlFor="edit-class">الحلقة</Label>
                 <Select
                   value={formData.class_id}
                   onValueChange={(value) => setFormData({ ...formData, class_id: value })}
                 >
                   <SelectTrigger id="edit-class">
-                    <SelectValue placeholder="اختر الفصل" />
+                    <SelectValue placeholder="اختر الحلقة" />
                   </SelectTrigger>
                   <SelectContent>
                     {availableClasses.map((cls) => (
@@ -689,7 +689,7 @@ export default function Students() {
           </div>
           <DialogFooter>
             <Button variant="outline" onClick={() => setIsEditDialogOpen(false)}>إلغاء</Button>
-            <Button onClick={handleEditStudent} className="bg-orange-500 hover:bg-orange-600 text-black">
+            <Button onClick={handleEditStudent} className="bg-orange-500 hover:bg-orange-600 text-white">
               حفظ التغييرات
             </Button>
           </DialogFooter>
@@ -700,20 +700,20 @@ export default function Students() {
       <Dialog open={isAssignDialogOpen} onOpenChange={setIsAssignDialogOpen}>
         <DialogContent className="sm:max-w-[425px]" onInteractOutside={(e) => e.preventDefault()}>
           <DialogHeader>
-            <DialogTitle>تعيين فصل للطالب</DialogTitle>
+            <DialogTitle>تعيين حلقة للطالب</DialogTitle>
             <DialogDescription>
-              اختر الفصل المناسب للطالب {selectedStudent?.name}
+              اختر الحلقة المناسبة للطالب {selectedStudent?.name}
             </DialogDescription>
           </DialogHeader>
           <div className="grid gap-4 py-4">
             <div className="space-y-2">
-              <Label htmlFor="assign-class">الفصل</Label>
+              <Label htmlFor="assign-class">الحلقة</Label>
               <Select
                 value={formData.class_id}
                 onValueChange={(value) => setFormData({ ...formData, class_id: value })}
               >
                 <SelectTrigger id="assign-class">
-                  <SelectValue placeholder="اختر الفصل" />
+                  <SelectValue placeholder="اختر الحلقة" />
                 </SelectTrigger>
                 <SelectContent>
                   {availableClasses.map((cls) => (
@@ -727,7 +727,7 @@ export default function Students() {
           </div>
           <DialogFooter>
             <Button variant="outline" onClick={() => setIsAssignDialogOpen(false)}>إلغاء</Button>
-            <Button onClick={handleAssignClass} className="bg-orange-500 hover:bg-orange-600 text-black">
+            <Button onClick={handleAssignClass} className="bg-orange-500 hover:bg-orange-600 text-white">
               حفظ
             </Button>
           </DialogFooter>

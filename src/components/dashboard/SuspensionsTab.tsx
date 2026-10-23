@@ -59,7 +59,7 @@ export default function SuspensionsTab({ suspensions, isLoading }: SuspensionsTa
                                         ) : item.type === 'suspension' ? (
                                             <Badge className="bg-orange-100 text-orange-700 hover:bg-orange-200 border-orange-200">
                                                 <ShieldAlert className="h-3 w-3 ml-1" />
-                                                وقف مؤقت
+                                                إيقاف مؤقت
                                             </Badge>
                                         ) : (
                                             <Badge className="bg-blue-100 text-blue-700 hover:bg-blue-200 border-blue-200">

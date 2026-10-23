@@ -39,8 +39,8 @@ VITE_SUPABASE_ANON_KEY="<publishable key>"
 
 ## الواجهة والأنماط
 
-`src/index.css` حزمة Tailwind 4.1.3 مولّدة مسبقًا. الـ classes الجديدة في موديول الحفظ تُولّد في `src/styles/memorization.css`:
+`src/index.css` حزمة Tailwind 4.1.3 مولّدة مسبقًا. الـ classes غير الموجودة فيها تُولّد في `src/styles/utilities.css`:
 
 ```bash
-npm run build:memorization-css
+npm run build:utilities-css
 ```

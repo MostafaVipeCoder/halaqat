@@ -215,7 +215,7 @@ export default function QRScanner() {
 
       if (isUnscheduled) {
         toast.info(`ℹ️ يوم حضور إضافي`, {
-          description: `${student.name} - هذا اليوم ليس من أيام الحضور المجدولة لفصله`,
+          description: `${student.name} - هذا اليوم ليس من أيام الحضور المجدولة لحلقته`,
           duration: 4000,
         });
       }
@@ -467,7 +467,7 @@ export default function QRScanner() {
             </div>
             <div className="flex gap-2">
               {!isScanning ? (
-                <Button onClick={startScanning} className="flex-1 bg-orange-500 hover:bg-orange-600 text-black">
+                <Button onClick={startScanning} className="flex-1 bg-orange-500 hover:bg-orange-600 text-white">
                   <Camera className="ml-2 h-4 w-4" />بدء المسح
                 </Button>
               ) : (

@@ -322,7 +322,7 @@ export default function StudentAttendanceReport({ student, open, onOpenChange }:
                   <div className="flex items-end">
                     <Button
                       onClick={handleExportPDF}
-                      className="w-full bg-orange-500 hover:bg-orange-600 text-black"
+                      className="w-full bg-orange-500 hover:bg-orange-600 text-white"
                     >
                       <Download className="ml-2 h-4 w-4" />
                       تصدير التقرير

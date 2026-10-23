@@ -65,7 +65,7 @@ export default function ExpelledStudents() {
                             <TableHeader>
                                 <TableRow className="bg-gray-50">
                                     <TableHead className="text-right">الطالب</TableHead>
-                                    <TableHead className="text-right">الفصل</TableHead>
+                                    <TableHead className="text-right">الحلقة</TableHead>
                                     <TableHead className="text-right">رقم الهاتف</TableHead>
                                     <TableHead className="text-right">تاريخ الاستبعاد</TableHead>
                                     <TableHead className="text-center">الإجراءات</TableHead>

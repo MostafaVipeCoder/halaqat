@@ -2,10 +2,11 @@ import { ReactNode, useState } from 'react';
 import { Link, useLocation, Outlet } from 'react-router-dom';
 import { Button } from '../ui/button';
 import {
-  GraduationCap, Users, School, Award, FileText, LogOut, Menu, User,
+  Users, School, Award, FileText, LogOut, Menu, User,
   DollarSign, QrCode, Settings, LayoutDashboard, ChevronDown, ChevronRight,
   BarChart3, Wallet, ShieldAlert, BookOpen
 } from 'lucide-react';
+import Logo from '../brand/Logo';
 import ProtectedOverlay from './ProtectedOverlay';
 import { useSettings } from '../../hooks/useSettings';
 import { Badge } from '../ui/badge';
@@ -53,7 +54,7 @@ export default function DashboardLayout({ onLogout, isVerified, userEmail, onVer
       items: [
         { name: 'جميع الطلاب', icon: Users, path: '/dashboard/students' },
         { name: 'الطلاب المفصولين', icon: ShieldAlert, path: '/dashboard/students/expelled' },
-        { name: 'الفصول', icon: School, path: '/dashboard/classes' },
+        { name: 'الحلقات', icon: School, path: '/dashboard/classes' },
         { name: 'المراحل الدراسية', icon: Award, path: '/dashboard/grades' },
       ]
     },
@@ -93,15 +94,9 @@ export default function DashboardLayout({ onLogout, isVerified, userEmail, onVer
   const SidebarContent = () => (
     <div className="flex flex-col h-full">
       {/* Logo */}
-      <div className="flex items-center h-16 flex-shrink-0 px-4 border-b border-orange-500/20">
-        <Link to="/" className="flex items-center gap-2" onClick={() => setIsSheetOpen(false)}>
-          <div className="bg-orange-500 p-2 rounded-lg shrink-0">
-            <GraduationCap className="h-6 w-6 text-black" />
-          </div>
-          <div className="flex flex-col min-w-0">
-            <span className="text-white font-bold text-sm leading-tight">منصة التعليم</span>
-            <span className="text-orange-400 text-[10px] truncate leading-tight">{settings.school_name}</span>
-          </div>
+      <div className="flex items-center h-16 flex-shrink-0 px-4 border-b brand-divider">
+        <Link to="/" className="flex items-center min-w-0" onClick={() => setIsSheetOpen(false)}>
+          <Logo size={38} subtitle={settings.school_name} />
         </Link>
       </div>
 
@@ -135,9 +130,9 @@ export default function DashboardLayout({ onLogout, isVerified, userEmail, onVer
                       key={item.path}
                       to={item.path}
                       onClick={() => setIsSheetOpen(false)}
-                      className={`flex items-center gap-3 px-4 py-2.5 rounded-lg transition-all duration-200 ${isActive
-                        ? 'bg-orange-500 text-black font-medium shadow-lg'
-                        : 'text-gray-300 hover:bg-gray-900 hover:text-white hover:translate-x-1'
+                      className={`brand-nav-item flex items-center gap-3 px-4 rounded-lg transition-all duration-200 ${isActive
+                        ? 'bg-orange-500 text-white font-medium shadow-lg'
+                        : 'text-gray-300 brand-nav-link'
                         }`}
                     >
                       <Icon className="h-4 w-4 flex-shrink-0" />
@@ -152,7 +147,7 @@ export default function DashboardLayout({ onLogout, isVerified, userEmail, onVer
       </ScrollArea>
 
       {/* User Info & Logout */}
-      <div className="flex-shrink-0 border-t border-orange-500/20 p-4 bg-black">
+      <div className="flex-shrink-0 border-t brand-divider p-4 brand-surface-deep">
         <div className="flex items-center gap-3 mb-3 px-2">
           <div className="bg-orange-500 p-2 rounded-full">
             <User className="h-5 w-5 text-black" />
@@ -176,7 +171,7 @@ export default function DashboardLayout({ onLogout, isVerified, userEmail, onVer
         <Button
           onClick={onLogout}
           variant="outline"
-          className="w-full border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-black"
+          className="w-full border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white"
         >
           <LogOut className="ml-2 h-4 w-4" />
           تسجيل الخروج
@@ -188,7 +183,7 @@ export default function DashboardLayout({ onLogout, isVerified, userEmail, onVer
   return (
     <div className="min-h-screen bg-gray-50 flex">
       {/* Sidebar - Desktop */}
-      <aside className="hidden lg:flex lg:w-64 lg:flex-col lg:fixed lg:inset-y-0 bg-black border-l border-orange-500/20 z-50">
+      <aside className="hidden lg:flex lg:w-64 lg:flex-col lg:fixed lg:inset-y-0 brand-surface border-l brand-divider z-50">
         <SidebarContent />
       </aside>
 
@@ -204,7 +199,7 @@ export default function DashboardLayout({ onLogout, isVerified, userEmail, onVer
                 <span className="sr-only">القائمة</span>
               </Button>
             </SheetTrigger>
-            <SheetContent side="right" className="p-0 bg-black border-l border-orange-500/20 w-72">
+            <SheetContent side="right" className="p-0 brand-surface border-l brand-divider w-72">
               <SheetTitle className="sr-only">قائمة التنقل</SheetTitle>
               <SidebarContent />
             </SheetContent>

@@ -239,7 +239,7 @@ export default function RecitationSessionDialog({
                                     setPages(Math.max(0, parseFloat(e.target.value) || 0));
                                 }}
                             />
-                            {!pagesEdited && <p className="text-[11px] text-gray-400">تقدير تلقائي حسب المقطع</p>}
+                            {!pagesEdited && <p className="text-[11px] text-gray-500">تقدير تلقائي حسب المقطع</p>}
                         </div>
                         <div className="space-y-2">
                             <Label htmlFor="rec-grade">التقدير *</Label>
@@ -259,7 +259,7 @@ export default function RecitationSessionDialog({
                                     ))}
                                 </SelectContent>
                             </Select>
-                            {!gradeEdited && <p className="text-[11px] text-gray-400">مقترح من الأخطاء: {gradeMeta(grade).label}</p>}
+                            {!gradeEdited && <p className="text-[11px] text-gray-500">مقترح من الأخطاء: {gradeMeta(grade).label}</p>}
                         </div>
                         <div className="space-y-2">
                             <Label htmlFor="rec-teacher">المحفّظ</Label>
@@ -275,7 +275,7 @@ export default function RecitationSessionDialog({
 
                 <DialogFooter>
                     <Button variant="outline" onClick={() => onOpenChange(false)}>إلغاء</Button>
-                    <Button onClick={handleSubmit} disabled={isSubmitting} className="bg-orange-500 hover:bg-orange-600 text-black">
+                    <Button onClick={handleSubmit} disabled={isSubmitting} className="bg-orange-500 hover:bg-orange-600 text-white">
                         {isSubmitting ? 'جاري الحفظ...' : 'حفظ التسميع'}
                     </Button>
                 </DialogFooter>

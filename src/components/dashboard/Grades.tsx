@@ -109,7 +109,7 @@ export default function Grades() {
 
     // Check if grade has classes or students
     if (grade && (grade.classCount || 0) > 0) {
-      toast.error('لا يمكن حذف مرحلة مرتبطة بفصول دراسية. قم بحذف الفصول أولاً.');
+      toast.error('لا يمكن حذف مرحلة مرتبطة بحلقات. قم بحذف الحلقات أولاً.');
       return;
     }
 
@@ -162,7 +162,7 @@ export default function Grades() {
         </div>
         <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
           <DialogTrigger asChild>
-            <Button onClick={resetForm} className="bg-orange-500 hover:bg-orange-600 text-black">
+            <Button onClick={resetForm} className="bg-orange-500 hover:bg-orange-600 text-white">
               <Plus className="ml-2 h-4 w-4" />
               إضافة مرحلة جديدة
             </Button>
@@ -211,7 +211,7 @@ export default function Grades() {
               <Button variant="outline" onClick={() => setIsAddDialogOpen(false)}>
                 إلغاء
               </Button>
-              <Button className="bg-orange-500 hover:bg-orange-600 text-black" onClick={handleAddGrade}>
+              <Button className="bg-orange-500 hover:bg-orange-600 text-white" onClick={handleAddGrade}>
                 إضافة المرحلة
               </Button>
             </DialogFooter>
@@ -229,7 +229,7 @@ export default function Grades() {
         </Card>
         <Card>
           <CardHeader className="pb-2">
-            <CardDescription>إجمالي الفصول المفتوحة</CardDescription>
+            <CardDescription>إجمالي الحلقات المفتوحة</CardDescription>
             <CardTitle className="text-3xl text-black">
               {grades.reduce((sum, grade) => sum + (grade.classCount || 0), 0)}
             </CardTitle>
@@ -273,8 +273,8 @@ export default function Grades() {
               <p className="text-sm text-gray-500">{grade.description || 'لا يوجد وصف'}</p>
 
               <div className="flex items-center justify-between pt-2">
-                <span className="text-sm text-gray-600">عدد الفصول</span>
-                <Badge variant="secondary">{grade.classCount || 0} فصل</Badge>
+                <span className="text-sm text-gray-600">عدد الحلقات</span>
+                <Badge variant="secondary">{grade.classCount || 0} حلقة</Badge>
               </div>
 
               <div className="flex items-center justify-between pt-1">
@@ -356,7 +356,7 @@ export default function Grades() {
             <Button variant="outline" onClick={() => setIsEditDialogOpen(false)}>
               إلغاء
             </Button>
-            <Button className="bg-orange-500 hover:bg-orange-600 text-black" onClick={handleEditGrade}>
+            <Button className="bg-orange-500 hover:bg-orange-600 text-white" onClick={handleEditGrade}>
               حفظ التعديلات
             </Button>
           </DialogFooter>

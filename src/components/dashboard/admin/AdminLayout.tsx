@@ -1,7 +1,8 @@
 import { ReactNode, useState } from 'react';
 import { Link, useLocation, Outlet } from 'react-router-dom';
 import { Button } from '../../ui/button';
-import { LayoutDashboard, Users, CreditCard, Settings, LogOut, Menu, X, ShieldCheck, User } from 'lucide-react';
+import { LayoutDashboard, Users, CreditCard, Settings, LogOut, Menu, X, User } from 'lucide-react';
+import Logo from '../../brand/Logo';
 
 interface AdminLayoutProps {
     onLogout: () => void;
@@ -22,17 +23,11 @@ export default function AdminLayout({ onLogout, userEmail }: AdminLayoutProps) {
     return (
         <div className="min-h-screen bg-gray-50" dir="rtl">
             {/* Sidebar - Desktop */}
-            <aside className="hidden lg:fixed lg:inset-y-0 lg:right-0 lg:flex lg:w-64 lg:flex-col bg-black border-l border-orange-500/20">
+            <aside className="hidden lg:fixed lg:inset-y-0 lg:right-0 lg:flex lg:w-64 lg:flex-col brand-surface border-l brand-divider">
                 <div className="flex flex-col flex-1 min-h-0">
-                    <div className="flex items-center h-16 flex-shrink-0 px-4 bg-black border-b border-orange-500/20">
+                    <div className="flex items-center h-16 flex-shrink-0 px-4 border-b brand-divider">
                         <Link to="/admin" className="flex items-center gap-2">
-                            <div className="bg-orange-500 p-2 rounded-lg shrink-0">
-                                <ShieldCheck className="h-6 w-6 text-black" />
-                            </div>
-                            <div className="flex flex-col min-w-0 text-right">
-                                <span className="text-white font-bold text-sm leading-tight">لوحة الإدارة</span>
-                                <span className="text-orange-400 text-[10px] truncate leading-tight">التحكم الكامل</span>
-                            </div>
+                            <Logo size={38} subtitle="لوحة إدارة المنصة" />
                         </Link>
                     </div>
 
@@ -46,8 +41,8 @@ export default function AdminLayout({ onLogout, userEmail }: AdminLayoutProps) {
                                     key={item.path}
                                     to={item.path}
                                     className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${isActive
-                                        ? 'bg-orange-500 text-black'
-                                        : 'text-gray-300 hover:bg-gray-900 hover:text-white'
+                                        ? 'bg-orange-500 text-white'
+                                        : 'text-gray-300 brand-nav-link'
                                         }`}
                                 >
                                     <Icon className="h-5 w-5" />
@@ -57,7 +52,7 @@ export default function AdminLayout({ onLogout, userEmail }: AdminLayoutProps) {
                         })}
                     </nav>
 
-                    <div className="flex-shrink-0 border-t border-orange-500/20 p-4">
+                    <div className="flex-shrink-0 border-t brand-divider p-4">
                         <div className="flex items-center gap-3 mb-3 px-2">
                             <div className="bg-orange-500 p-2 rounded-full">
                                 <User className="h-5 w-5 text-black" />
@@ -70,7 +65,7 @@ export default function AdminLayout({ onLogout, userEmail }: AdminLayoutProps) {
                         <Button
                             onClick={onLogout}
                             variant="outline"
-                            className="w-full border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-black bg-transparent"
+                            className="w-full border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white bg-transparent"
                         >
                             <LogOut className="ml-2 h-4 w-4" />
                             تسجيل الخروج
@@ -103,16 +98,10 @@ export default function AdminLayout({ onLogout, userEmail }: AdminLayoutProps) {
             {sidebarOpen && (
                 <div className="lg:hidden">
                     <div className="fixed inset-0 z-40 bg-black/50" onClick={() => setSidebarOpen(false)} />
-                    <aside className="fixed inset-y-0 right-0 z-50 w-64 bg-black border-l border-orange-500/20 flex flex-col">
-                        <div className="flex items-center justify-between h-16 px-4 border-b border-orange-500/20">
+                    <aside className="fixed inset-y-0 right-0 z-50 w-64 brand-surface border-l brand-divider flex flex-col">
+                        <div className="flex items-center justify-between h-16 px-4 border-b brand-divider">
                             <Link to="/admin" className="flex items-center gap-2">
-                                <div className="bg-orange-500 p-2 rounded-lg shrink-0">
-                                    <ShieldCheck className="h-6 w-6 text-black" />
-                                </div>
-                                <div className="flex flex-col min-w-0 text-right">
-                                    <span className="text-white font-bold text-sm leading-tight">لوحة الإدارة</span>
-                                    <span className="text-orange-400 text-[10px] truncate leading-tight">التحكم الكامل</span>
-                                </div>
+                                <Logo size={38} subtitle="لوحة إدارة المنصة" />
                             </Link>
                             <button onClick={() => setSidebarOpen(false)} className="text-white">
                                 <X className="h-6 w-6" />
@@ -128,8 +117,8 @@ export default function AdminLayout({ onLogout, userEmail }: AdminLayoutProps) {
                                         to={item.path}
                                         onClick={() => setSidebarOpen(false)}
                                         className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${isActive
-                                            ? 'bg-orange-500 text-black'
-                                            : 'text-gray-300 hover:bg-gray-900 hover:text-white'
+                                            ? 'bg-orange-500 text-white'
+                                            : 'text-gray-300 brand-nav-link'
                                             }`}
                                     >
                                         <Icon className="h-5 w-5" />
@@ -139,7 +128,7 @@ export default function AdminLayout({ onLogout, userEmail }: AdminLayoutProps) {
                             })}
                         </nav>
 
-                        <div className="flex-shrink-0 border-t border-orange-500/20 p-4">
+                        <div className="flex-shrink-0 border-t brand-divider p-4">
                             <div className="flex items-center gap-3 mb-3 px-2">
                                 <div className="bg-orange-500 p-2 rounded-full">
                                     <User className="h-5 w-5 text-black" />
@@ -152,7 +141,7 @@ export default function AdminLayout({ onLogout, userEmail }: AdminLayoutProps) {
                             <Button
                                 onClick={onLogout}
                                 variant="outline"
-                                className="w-full border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-black bg-transparent"
+                                className="w-full border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white bg-transparent"
                             >
                                 <LogOut className="ml-2 h-4 w-4" />
                                 تسجيل الخروج

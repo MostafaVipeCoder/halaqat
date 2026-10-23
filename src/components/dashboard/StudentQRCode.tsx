@@ -58,7 +58,7 @@ export default function StudentQRCode({ student, open, onOpenChange }: StudentQR
         ctx.fillText(student.name, 400, 100);
 
         ctx.font = '24px Arial';
-        ctx.fillText(`الفصل: ${student.classes?.name || 'غير معين'}`, 400, 140);
+        ctx.fillText(`الحلقة: ${student.classes?.name || 'غير معين'}`, 400, 140);
 
         // Display simplified ID for visual purposes, or full ID if preferred
         const displayId = student.id.slice(0, 8).toUpperCase();
@@ -152,7 +152,7 @@ export default function StudentQRCode({ student, open, onOpenChange }: StudentQR
         <body>
           <div class="card">
             <h1>${student.name}</h1>
-            <p class="info">الفصل: ${student.classes?.name || 'غير معين'}</p>
+            <p class="info">الحلقة: ${student.classes?.name || 'غير معين'}</p>
             <p class="info">رقم الطالب: ${displayId}</p>
             <div class="qr-container">
               ${svgData}
@@ -191,7 +191,7 @@ export default function StudentQRCode({ student, open, onOpenChange }: StudentQR
           {/* Student Info */}
           <div className="bg-gray-50 p-4 rounded-lg text-center">
             <h3 className="text-black mb-1">{student.name}</h3>
-            <p className="text-sm text-gray-600">الفصل: {student.classes?.name || 'غير معين'}</p>
+            <p className="text-sm text-gray-600">الحلقة: {student.classes?.name || 'غير معين'}</p>
             <p className="text-sm text-gray-600">
               رقم الطالب: {displayId}
             </p>
@@ -228,7 +228,7 @@ export default function StudentQRCode({ student, open, onOpenChange }: StudentQR
             </Button>
             <Button
               onClick={handlePrint}
-              className="bg-orange-500 hover:bg-orange-600 text-black"
+              className="bg-orange-500 hover:bg-orange-600 text-white"
             >
               <Printer className="ml-2 h-4 w-4" />
               طباعة

@@ -111,7 +111,7 @@ export default function ProtectedOverlay({ email, onVerify }: ProtectedOverlayPr
           <div className="space-y-3">
             <Button
               onClick={handleVerifyOtp}
-              className="w-full bg-orange-500 hover:bg-orange-600 text-black"
+              className="w-full bg-orange-500 hover:bg-orange-600 text-white"
               disabled={loading || otp.length < 6}
             >
               {loading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
@@ -121,7 +121,7 @@ export default function ProtectedOverlay({ email, onVerify }: ProtectedOverlayPr
             <Button
               onClick={handleResendEmail}
               variant="outline"
-              className="w-full border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-black"
+              className="w-full border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white"
             >
               <Mail className="ml-2 h-4 w-4" />
               إعادة إرسال رمز التفعيل

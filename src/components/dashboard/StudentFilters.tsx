@@ -42,16 +42,16 @@ export default function StudentFilters({ classes, filters, onFilterChange, onCle
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {/* Filter by Class */}
                     <div className="space-y-2">
-                        <Label htmlFor="class-filter">الفصل</Label>
+                        <Label htmlFor="class-filter">الحلقة</Label>
                         <Select
                             value={filters.classId}
                             onValueChange={(value) => onFilterChange({ ...filters, classId: value })}
                         >
                             <SelectTrigger id="class-filter">
-                                <SelectValue placeholder="جميع الفصول" />
+                                <SelectValue placeholder="جميع الحلقات" />
                             </SelectTrigger>
                             <SelectContent>
-                                <SelectItem value="all">جميع الفصول</SelectItem>
+                                <SelectItem value="all">جميع الحلقات</SelectItem>
                                 {classes.map((cls) => (
                                     <SelectItem key={cls.id} value={cls.id}>
                                         {cls.name} - {cls.stage}
@@ -87,7 +87,7 @@ export default function StudentFilters({ classes, filters, onFilterChange, onCle
                             الفلاتر النشطة:{' '}
                             {filters.classId !== 'all' && (
                                 <span className="inline-flex items-center gap-1 px-2 py-1 bg-orange-100 text-orange-800 rounded text-xs mr-2">
-                                    {classes.find(c => c.id === filters.classId)?.name || 'فصل'}
+                                    {classes.find(c => c.id === filters.classId)?.name || 'حلقة'}
                                 </span>
                             )}
                             {filters.paymentStatus !== 'all' && (

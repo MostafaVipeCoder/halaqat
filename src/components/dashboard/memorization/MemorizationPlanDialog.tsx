@@ -181,7 +181,7 @@ export default function MemorizationPlanDialog({ open, onOpenChange, studentId, 
                                         aria-pressed={selected}
                                         onClick={() => toggleSurah(s.number)}
                                         className={`px-2 py-1 rounded-md text-xs border transition-colors ${selected
-                                            ? 'bg-emerald-500 text-white border-emerald-500'
+                                            ? 'bg-emerald-700 text-white border-emerald-700'
                                             : 'bg-white text-gray-600 border-gray-200 hover:border-emerald-300'}`}
                                     >
                                         {s.name}
@@ -199,7 +199,7 @@ export default function MemorizationPlanDialog({ open, onOpenChange, studentId, 
 
                 <DialogFooter>
                     <Button variant="outline" onClick={() => onOpenChange(false)}>إلغاء</Button>
-                    <Button onClick={handleSave} disabled={isSaving} className="bg-orange-500 hover:bg-orange-600 text-black">
+                    <Button onClick={handleSave} disabled={isSaving} className="bg-orange-500 hover:bg-orange-600 text-white">
                         {isSaving ? 'جاري الحفظ...' : 'حفظ الخطة'}
                     </Button>
                 </DialogFooter>

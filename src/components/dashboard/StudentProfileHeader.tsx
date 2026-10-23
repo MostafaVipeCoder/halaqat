@@ -28,7 +28,7 @@ export default function StudentProfileHeader({
             case 'expelled':
                 return <Badge variant="destructive">مفصول نهائياً</Badge>;
             default:
-                return <Badge className="bg-green-500 hover:bg-green-600">نشط حالياً</Badge>;
+                return <Badge variant="outline" className="bg-orange-50 text-orange-700 border-orange-200">نشط حالياً</Badge>;
         }
     };
 

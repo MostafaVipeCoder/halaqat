@@ -116,7 +116,7 @@ export default function FinancialReports() {
                         <Download className="ml-2 h-4 w-4" />
                         تصدير Excel
                     </Button>
-                    <Button className="bg-orange-500 hover:bg-orange-600 text-black font-medium" onClick={() => handleExport('pdf')}>
+                    <Button className="bg-orange-500 hover:bg-orange-600 text-white font-medium" onClick={() => handleExport('pdf')}>
                         <Download className="ml-2 h-4 w-4" />
                         تقرير PDF
                     </Button>
@@ -280,7 +280,7 @@ export default function FinancialReports() {
                         <TableHeader className="bg-gray-50">
                             <TableRow>
                                 <TableHead className="text-right">اسم الطالب</TableHead>
-                                <TableHead className="text-right">الفصل</TableHead>
+                                <TableHead className="text-right">الحلقة</TableHead>
                                 <TableHead className="text-right">الشهر</TableHead>
                                 <TableHead className="text-right text-orange-600">المبلغ</TableHead>
                                 <TableHead className="text-right">تاريخ الدفع</TableHead>

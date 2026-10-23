@@ -55,6 +55,7 @@ export default function AttendanceChart() {
                         />
                         <Legend
                             wrapperStyle={{ fontSize: '12px' }}
+                            formatter={(value: string) => <span style={{ color: '#4B5563' }}>{value}</span>}
                         />
                         <Line
                             type="monotone"

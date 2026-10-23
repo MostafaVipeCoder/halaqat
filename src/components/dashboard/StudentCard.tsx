@@ -33,7 +33,7 @@ export default function StudentCard({ student, onView, onEdit, onDelete, onShowQ
                         <div className="min-w-0">
                             <h3 className="font-bold text-lg text-gray-900 break-words" title={student.name}>{student.name}</h3>
                             <p className="text-sm text-gray-500">
-                                {student.classes?.name || 'لم يتم تعيين فصل'}
+                                {student.classes?.name || 'لم يتم تعيين حلقة'}
                             </p>
                         </div>
                     </div>
@@ -95,12 +95,12 @@ export default function StudentCard({ student, onView, onEdit, onDelete, onShowQ
                                 size="sm"
                                 variant="outline"
                                 onClick={() => {
-                                    if (confirm('هل أنت متأكد من فصل هذا الطالب؟')) {
+                                    if (confirm('هل أنت متأكد من فصل هذا الطالب نهائيًا؟')) {
                                         onStatusUpdate(student.id, 'expelled');
                                     }
                                 }}
                                 className="flex-1 h-9 text-red-700 border-red-200 hover:bg-red-50"
-                                title="فصل الطالب"
+                                title="فصل الطالب نهائيًا" aria-label="فصل الطالب نهائيًا"
                             >
                                 <ShieldAlert className="h-4 w-4" />
                             </Button>

@@ -259,7 +259,7 @@ export default function Payments() {
         <div className="flex gap-2">
           <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
             <DialogTrigger asChild>
-              <Button className="bg-orange-500 hover:bg-orange-600 text-black">
+              <Button className="bg-orange-500 hover:bg-orange-600 text-white">
                 <Plus className="ml-2 h-4 w-4" />
                 إضافة فاتورة
               </Button>
@@ -336,7 +336,7 @@ export default function Payments() {
                   إلغاء
                 </Button>
                 <Button
-                  className="bg-orange-500 hover:bg-orange-600 text-black"
+                  className="bg-orange-500 hover:bg-orange-600 text-white"
                   onClick={handleAddInvoice}
                   disabled={formData.studentId ? students.find(s => s.id === formData.studentId)?.payment_status === 'exempt' : false}
                 >
@@ -456,7 +456,7 @@ export default function Payments() {
                   إلغاء
                 </Button>
                 <Button
-                  className="bg-orange-500 hover:bg-orange-600 text-black"
+                  className="bg-orange-500 hover:bg-orange-600 text-white"
                   onClick={handleBulkInvoice}
                   disabled={bulkFormData.targetType === 'student' && bulkFormData.studentId ? students.find(s => s.id === bulkFormData.studentId)?.payment_status === 'exempt' : false}
                 >

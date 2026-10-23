@@ -83,7 +83,7 @@ export default function Settings() {
 
             toast.error(
                 `⚠️ لا يمكن حذف هذه المرحلة لأنها مرتبطة بـ ${gradesInStage.length} مرحلة فرعية` +
-                `${totalClasses > 0 ? ` و ${totalClasses} فصل` : ''}` +
+                `${totalClasses > 0 ? ` و ${totalClasses} حلقة` : ''}` +
                 `${totalStudents > 0 ? ` و ${totalStudents} طالب` : ''}`
             );
             return;
@@ -94,7 +94,7 @@ export default function Settings() {
         if (classesInStage.length > 0) {
             const totalStudents = classesInStage.reduce((sum: number, c: any) => sum + (c.currentStudents || 0), 0);
             toast.error(
-                `⚠️ لا يمكن حذف هذه المرحلة لأنها مرتبطة بـ ${classesInStage.length} فصل دراسي` +
+                `⚠️ لا يمكن حذف هذه المرحلة لأنها مرتبطة بـ ${classesInStage.length} حلقة` +
                 `${totalStudents > 0 ? ` و ${totalStudents} طالب` : ''}`
             );
             return;
@@ -171,7 +171,7 @@ export default function Settings() {
                         <Button
                             onClick={handleSaveBasic}
                             disabled={isUpdating || (schoolName === settings.school_name && workStartTime === settings.work_start_time && workEndTime === settings.work_end_time)}
-                            className="bg-orange-500 hover:bg-orange-600 text-black w-full font-bold shadow-md shadow-orange-500/20"
+                            className="bg-orange-500 hover:bg-orange-600 text-white w-full font-bold shadow-md shadow-orange-500/20"
                         >
                             <Save className="ml-2 h-4 w-4" />
                             حفظ التغييرات

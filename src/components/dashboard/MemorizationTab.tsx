@@ -10,6 +10,7 @@ import MemorizationPlanDialog from './memorization/MemorizationPlanDialog';
 import { countsAsMemorized, gradeMeta, typeMeta } from './memorization/labels';
 import { useMemorizationPlan, useRecitationSessions } from '../../hooks/useMemorization';
 import { SURAHS, TOTAL_PAGES, computeCoverage, formatRange, surahName } from '../../lib/quran';
+import { countNoun, JUZ, SESSIONS, SURAHS_COMPLETE } from '../../lib/arabicPlural';
 import type { Student } from '../../types';
 
 interface MemorizationTabProps {
@@ -20,10 +21,10 @@ const UNIT_LABELS = { lines: 'سطر', pages: 'صفحة', quarters: 'ربع حز
 const PAGES_PER_JUZ = TOTAL_PAGES / 30;
 
 const coverageColor = (percent: number) =>
-    percent === 100 ? 'bg-emerald-500 text-white border-emerald-500'
+    percent === 100 ? 'bg-emerald-700 text-white border-emerald-700'
         : percent >= 50 ? 'bg-emerald-200 text-emerald-900 border-emerald-300'
             : percent > 0 ? 'bg-emerald-50 text-emerald-800 border-emerald-200'
-                : 'bg-gray-50 text-gray-400 border-gray-200';
+                : 'bg-gray-50 text-gray-500 border-gray-200';
 
 export default function MemorizationTab({ student }: MemorizationTabProps) {
     const { sessions, isLoading, addSession, isAdding, deleteSession } = useRecitationSessions({ studentId: student.id });
@@ -75,7 +76,7 @@ export default function MemorizationTab({ student }: MemorizationTabProps) {
                     <Target className="h-4 w-4 ml-2" />
                     {plan ? 'تعديل خطة الحفظ' : 'إعداد خطة الحفظ'}
                 </Button>
-                <Button onClick={() => setIsSessionDialogOpen(true)} className="bg-orange-500 hover:bg-orange-600 text-black">
+                <Button onClick={() => setIsSessionDialogOpen(true)} className="bg-orange-500 hover:bg-orange-600 text-white">
                     <Plus className="h-4 w-4 ml-2" />
                     تسجيل تسميع
                 </Button>
@@ -87,28 +88,28 @@ export default function MemorizationTab({ student }: MemorizationTabProps) {
                     <CardContent className="pt-6">
                         <p className="text-sm text-gray-500">الصفحات المحفوظة</p>
                         <p className="text-3xl font-bold text-gray-900 mt-1">≈ {coverage.memorizedPages}</p>
-                        <p className="text-xs text-gray-400 mt-1">من {TOTAL_PAGES} صفحة ({coverage.percent}%)</p>
+                        <p className="text-xs text-gray-500 mt-1">من {TOTAL_PAGES} صفحة ({coverage.percent}%)</p>
                     </CardContent>
                 </Card>
                 <Card>
                     <CardContent className="pt-6">
                         <p className="text-sm text-gray-500">أجزاء مكتملة</p>
                         <p className="text-3xl font-bold text-gray-900 mt-1">{coverage.completedJuz}</p>
-                        <p className="text-xs text-gray-400 mt-1">{coverage.completedSurahs} سورة كاملة</p>
+                        <p className="text-xs text-gray-500 mt-1">{countNoun(coverage.completedSurahs, SURAHS_COMPLETE)}</p>
                     </CardContent>
                 </Card>
                 <Card>
                     <CardContent className="pt-6">
                         <p className="text-sm text-gray-500">حفظ جديد (30 يوم)</p>
                         <p className="text-3xl font-bold text-emerald-600 mt-1">{last30.newPages}</p>
-                        <p className="text-xs text-gray-400 mt-1">صفحة في {last30.count} جلسة</p>
+                        <p className="text-xs text-gray-500 mt-1">صفحة · {countNoun(last30.count, SESSIONS)}</p>
                     </CardContent>
                 </Card>
                 <Card>
                     <CardContent className="pt-6">
                         <p className="text-sm text-gray-500">مراجعة (30 يوم)</p>
                         <p className="text-3xl font-bold text-sky-600 mt-1">{last30.reviewPages}</p>
-                        <p className="text-xs text-gray-400 mt-1">صفحة</p>
+                        <p className="text-xs text-gray-500 mt-1">صفحة</p>
                     </CardContent>
                 </Card>
             </div>
@@ -147,7 +148,7 @@ export default function MemorizationTab({ student }: MemorizationTabProps) {
                             <>
                                 <div className="flex justify-between text-sm">
                                     <span className="text-gray-600">
-                                        {plan!.target_juz_count} جزء{plan!.target_date ? ` بحلول ${plan!.target_date}` : ''}
+                                        {countNoun(plan!.target_juz_count!, JUZ)}{plan!.target_date ? ` بحلول ${plan!.target_date}` : ''}
                                     </span>
                                     <span className="font-semibold">{targetPercent}%</span>
                                 </div>
@@ -238,7 +239,7 @@ export default function MemorizationTab({ student }: MemorizationTabProps) {
                                                         {countsAsMemorized(s) && <BookOpenCheck className="h-3.5 w-3.5 text-emerald-500" />}
                                                         {label}
                                                     </span>
-                                                    {s.notes && <span className="block text-xs text-gray-400 max-w-xs truncate">{s.notes}</span>}
+                                                    {s.notes && <span className="block text-xs text-gray-500 max-w-xs truncate">{s.notes}</span>}
                                                 </td>
                                                 <td className="px-4 py-3">{Number(s.pages)}</td>
                                                 <td className="px-4 py-3 text-gray-600">

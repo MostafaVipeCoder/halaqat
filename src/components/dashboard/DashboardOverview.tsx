@@ -39,9 +39,9 @@ export default function DashboardOverview() {
 
     if (isLoading) {
         return (
-            <div className="space-y-6 animate-pulse" dir="rtl">
+            <div className="mz space-y-6 animate-pulse" dir="rtl">
                 <div className="h-8 bg-gray-200 rounded w-1/3"></div>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
                     {[1, 2, 3, 4].map(i => (
                         <div key={i} className="h-32 bg-gray-200 rounded-lg"></div>
                     ))}
@@ -51,7 +51,7 @@ export default function DashboardOverview() {
     }
 
     return (
-        <div className="space-y-6" dir="rtl">
+        <div className="mz space-y-6" dir="rtl">
             {/* Header */}
             <div>
                 <h1 className="text-3xl font-bold text-gray-900">
@@ -61,18 +61,16 @@ export default function DashboardOverview() {
             </div>
 
             {/* KPI Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
                 <KPICard
                     label="إجمالي الطلاب"
                     value={totalStudents}
-                    change={12}
                     icon={Users}
                     color="orange"
                 />
                 <KPICard
                     label="نسبة الحضور"
                     value={attendanceRate}
-                    change={5}
                     icon={TrendingUp}
                     color="green"
                     suffix="%"
@@ -80,14 +78,12 @@ export default function DashboardOverview() {
                 <KPICard
                     label="المدفوعات المتأخرة"
                     value={latePayments}
-                    change={-3}
                     icon={AlertCircle}
                     color="red"
                 />
                 <KPICard
-                    label="الفصول النشطة"
+                    label="الحلقات النشطة"
                     value={activeClasses}
-                    change={0}
                     icon={School}
                     color="blue"
                 />

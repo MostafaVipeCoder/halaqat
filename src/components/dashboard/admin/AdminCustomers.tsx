@@ -299,7 +299,7 @@ export default function AdminCustomers() {
                     </div>
                     <DialogFooter className="gap-2">
                         <Button variant="ghost" onClick={() => setIsPackageDialogOpen(false)}>إلغاء</Button>
-                        <Button className="bg-orange-500 hover:bg-orange-600 text-black" onClick={handleChangePackage}>تحديث الباقة</Button>
+                        <Button className="bg-orange-500 hover:bg-orange-600 text-white" onClick={handleChangePackage}>تحديث الباقة</Button>
                     </DialogFooter>
                 </DialogContent>
             </Dialog>
@@ -363,7 +363,7 @@ export default function AdminCustomers() {
                         <AlertDialogAction
                             className={confirmAction?.type === 'status' && confirmAction.data?.status === 'active'
                                 ? "bg-red-600 hover:bg-red-700 text-white"
-                                : "bg-orange-500 hover:bg-orange-600 text-black"
+                                : "bg-orange-500 hover:bg-orange-600 text-white"
                             }
                             onClick={() => {
                                 if (confirmAction?.type === 'package') confirmPackageChange();

@@ -64,6 +64,7 @@ export default function PaymentsChart() {
                         />
                         <Legend
                             wrapperStyle={{ fontSize: '12px' }}
+                            formatter={(value: string) => <span style={{ color: '#4B5563' }}>{value}</span>}
                         />
                         <Bar
                             dataKey="مدفوع"

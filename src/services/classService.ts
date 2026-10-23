@@ -3,7 +3,7 @@ import type { Class } from '../types';
 
 export const classService = {
     /**
-     * جلب جميع الفصول
+     * جلب جميع الحلقات
      */
     async getAll() {
         const { data, error } = await supabase
@@ -30,10 +30,10 @@ export const classService = {
     },
 
     /**
-     * إضافة فصل جديد
+     * إضافة حلقة جديدة
      */
     /**
-     * إضافة فصل جديد
+     * إضافة حلقة جديدة
      */
     async create(classData: Omit<Class, 'id' | 'created_at' | 'updated_at'>) {
         // Get current user

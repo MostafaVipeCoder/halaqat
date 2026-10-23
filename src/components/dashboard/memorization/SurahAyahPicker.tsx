@@ -50,7 +50,7 @@ export default function SurahAyahPicker({ label, idPrefix, value, onChange }: Su
                     }}
                 />
             </div>
-            <p className="text-[11px] text-gray-400">الآيات: 1 - {maxAyah}</p>
+            <p className="text-[11px] text-gray-500">الآيات: 1 - {maxAyah}</p>
         </div>
     );
 }

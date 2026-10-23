@@ -117,7 +117,7 @@ export default function Classes() {
   };
 
   const handleDeleteClass = async (id: string) => {
-    if (!window.confirm('هل أنت متأكد من حذف هذا الفصل؟')) return;
+    if (!window.confirm('هل أنت متأكد من حذف هذه الحلقة؟')) return;
 
     try {
       await deleteClass(id);
@@ -160,7 +160,7 @@ export default function Classes() {
       <div className="flex items-center justify-center min-h-[400px]">
         <div className="text-center">
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-orange-500 mx-auto mb-4"></div>
-          <p className="text-gray-600">جاري تحميل الفصول...</p>
+          <p className="text-gray-600">جاري تحميل الحلقات...</p>
         </div>
       </div>
     );
@@ -171,31 +171,31 @@ export default function Classes() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h2 className="text-2xl text-black mb-1">إدارة الفصول</h2>
-          <p className="text-gray-600">عرض وإدارة الفصول الدراسية</p>
+          <h2 className="text-2xl text-black mb-1">إدارة الحلقات</h2>
+          <p className="text-gray-600">عرض وإدارة حلقات التحفيظ</p>
         </div>
         <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
           <DialogTrigger asChild>
-            <Button onClick={resetForm} className="bg-orange-500 hover:bg-orange-600 text-black">
+            <Button onClick={resetForm} className="bg-orange-500 hover:bg-orange-600 text-white">
               <Plus className="ml-2 h-4 w-4" />
-              إضافة فصل جديد
+              إضافة حلقة جديدة
             </Button>
           </DialogTrigger>
           <DialogContent onInteractOutside={(e) => e.preventDefault()}>
             <DialogHeader>
-              <DialogTitle>إضافة فصل جديد</DialogTitle>
+              <DialogTitle>إضافة حلقة جديدة</DialogTitle>
               <DialogDescription>
-                أدخل بيانات الفصل الجديد
+                أدخل بيانات الحلقة الجديدة
               </DialogDescription>
             </DialogHeader>
             <div className="space-y-4">
               <div>
-                <Label htmlFor="add-name">اسم الفصل</Label>
+                <Label htmlFor="add-name">اسم الحلقة</Label>
                 <Input
                   id="add-name"
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  placeholder="مثال: فصل 1-أ"
+                  placeholder="مثال: حلقة الفجر"
                 />
               </div>
               <div className="grid grid-cols-1 gap-4">
@@ -290,8 +290,8 @@ export default function Classes() {
               <Button variant="outline" onClick={() => setIsAddDialogOpen(false)}>
                 إلغاء
               </Button>
-              <Button className="bg-orange-500 hover:bg-orange-600 text-black" onClick={handleAddClass}>
-                إضافة الفصل
+              <Button className="bg-orange-500 hover:bg-orange-600 text-white" onClick={handleAddClass}>
+                إضافة الحلقة
               </Button>
             </DialogFooter>
           </DialogContent>
@@ -302,7 +302,7 @@ export default function Classes() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <Card>
           <CardHeader className="pb-2">
-            <CardDescription>إجمالي الفصول</CardDescription>
+            <CardDescription>إجمالي الحلقات</CardDescription>
             <CardTitle className="text-3xl text-black">{classes.length}</CardTitle>
           </CardHeader>
         </Card>
@@ -330,7 +330,7 @@ export default function Classes() {
           <div className="relative">
             <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
             <Input
-              placeholder="ابحث عن فصل..."
+              placeholder="ابحث عن حلقة..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="pr-10"
@@ -346,7 +346,7 @@ export default function Classes() {
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead className="text-right">اسم الفصل</TableHead>
+                  <TableHead className="text-right">اسم الحلقة</TableHead>
                   <TableHead className="text-right">المرحلة الدراسية</TableHead>
                   <TableHead className="text-right">المعلم</TableHead>
                   <TableHead className="text-right">الطلاب</TableHead>
@@ -434,14 +434,14 @@ export default function Classes() {
       <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
         <DialogContent onInteractOutside={(e) => e.preventDefault()}>
           <DialogHeader>
-            <DialogTitle>تعديل بيانات الفصل</DialogTitle>
+            <DialogTitle>تعديل بيانات الحلقة</DialogTitle>
             <DialogDescription>
-              قم بتعديل بيانات الفصل
+              قم بتعديل بيانات الحلقة
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-4">
             <div>
-              <Label htmlFor="edit-name">اسم الفصل</Label>
+              <Label htmlFor="edit-name">اسم الحلقة</Label>
               <Input
                 id="edit-name"
                 value={formData.name}
@@ -538,7 +538,7 @@ export default function Classes() {
             <Button variant="outline" onClick={() => setIsEditDialogOpen(false)}>
               إلغاء
             </Button>
-            <Button className="bg-orange-500 hover:bg-orange-600 text-black" onClick={handleEditClass}>
+            <Button className="bg-orange-500 hover:bg-orange-600 text-white" onClick={handleEditClass}>
               حفظ التعديلات
             </Button>
           </DialogFooter>

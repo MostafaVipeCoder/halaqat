@@ -89,7 +89,7 @@ export default function PerformanceReports() {
     // Behavior Distribution Data
     const distributionData = useMemo(() => [
         { name: 'إنذار', value: stats.warning, color: BEHAVIOR_COLORS.warning },
-        { name: 'فصل مؤقت', value: stats.suspension, color: BEHAVIOR_COLORS.suspension },
+        { name: 'إيقاف مؤقت', value: stats.suspension, color: BEHAVIOR_COLORS.suspension },
         { name: 'فصل نهائي', value: stats.expulsion, color: BEHAVIOR_COLORS.expulsion },
         { name: 'إخطار ولي أمر', value: stats.parent_notification, color: BEHAVIOR_COLORS.parent_notification },
     ].filter(d => d.value > 0), [stats]);
@@ -120,7 +120,7 @@ export default function PerformanceReports() {
                     <h1 className="text-2xl font-bold text-gray-900">تقارير الأداء السلوكي</h1>
                     <p className="text-gray-500">تحليل مستوى الانضباط والحضور للطلاب</p>
                 </div>
-                <Button className="bg-orange-500 hover:bg-orange-600 text-black font-medium" onClick={handleExport}>
+                <Button className="bg-orange-500 hover:bg-orange-600 text-white font-medium" onClick={handleExport}>
                     <Download className="ml-2 h-4 w-4" />
                     تصدير التقرير الكامل
                 </Button>
@@ -151,7 +151,7 @@ export default function PerformanceReports() {
                         <div className="p-2 bg-red-100 w-fit rounded-lg mb-4">
                             <UserMinus className="h-5 w-5 text-red-600" />
                         </div>
-                        <p className="text-sm text-gray-500">الفصل المؤقت</p>
+                        <p className="text-sm text-gray-500">الإيقاف المؤقت</p>
                         <h3 className="text-2xl font-bold text-gray-900">{stats.suspension}</h3>
                     </CardContent>
                 </Card>
@@ -194,7 +194,7 @@ export default function PerformanceReports() {
                                     <YAxis stroke="#6b7280" fontSize={10} axisLine={false} tickLine={false} />
                                     <Tooltip contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }} />
                                     <Bar dataKey="warnings" name="إنذارات" fill={BEHAVIOR_COLORS.warning} radius={[2, 2, 0, 0]} stackId="a" />
-                                    <Bar dataKey="suspensions" name="فصل مؤقت" fill={BEHAVIOR_COLORS.suspension} radius={[2, 2, 0, 0]} stackId="a" />
+                                    <Bar dataKey="suspensions" name="إيقاف مؤقت" fill={BEHAVIOR_COLORS.suspension} radius={[2, 2, 0, 0]} stackId="a" />
                                     <Bar dataKey="expulsions" name="فصل نهائي" fill={BEHAVIOR_COLORS.expulsion} radius={[2, 2, 0, 0]} stackId="a" />
                                 </BarChart>
                             </ResponsiveContainer>
@@ -268,7 +268,7 @@ export default function PerformanceReports() {
                             <SelectContent>
                                 <SelectItem value="all">كل الإجراءات</SelectItem>
                                 <SelectItem value="warning">إنذار</SelectItem>
-                                <SelectItem value="suspension">فصل مؤقت</SelectItem>
+                                <SelectItem value="suspension">إيقاف مؤقت</SelectItem>
                                 <SelectItem value="expulsion">فصل نهائي</SelectItem>
                                 <SelectItem value="parent_notification">إخطار ولي أمر</SelectItem>
                             </SelectContent>
@@ -281,7 +281,7 @@ export default function PerformanceReports() {
                             <TableRow>
                                 <TableHead className="text-right">التاريخ</TableHead>
                                 <TableHead className="text-right">اسم الطالب</TableHead>
-                                <TableHead className="text-right">الفصل</TableHead>
+                                <TableHead className="text-right">الحلقة</TableHead>
                                 <TableHead className="text-right">نوع الإجراء</TableHead>
                                 <TableHead className="text-right">السبب</TableHead>
                                 <TableHead className="text-right">المدة</TableHead>
@@ -298,7 +298,7 @@ export default function PerformanceReports() {
                                         <TableCell>{(log.students as any)?.classes?.name || '-'}</TableCell>
                                         <TableCell>
                                             {log.type === 'warning' && <Badge className="bg-yellow-100 text-yellow-700 hover:bg-yellow-100 border-0">إنذار</Badge>}
-                                            {log.type === 'suspension' && <Badge className="bg-red-100 text-red-700 hover:bg-red-100 border-0">فصل مؤقت</Badge>}
+                                            {log.type === 'suspension' && <Badge className="bg-red-100 text-red-700 hover:bg-red-100 border-0">إيقاف مؤقت</Badge>}
                                             {log.type === 'expulsion' && <Badge className="bg-red-900 text-white hover:bg-red-900 border-0">فصل نهائي</Badge>}
                                             {log.type === 'parent_notification' && <Badge className="bg-blue-100 text-blue-700 hover:bg-blue-100 border-0">إخطار ولي أمر</Badge>}
                                         </TableCell>
