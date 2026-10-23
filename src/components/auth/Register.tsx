@@ -6,6 +6,7 @@ import { Label } from '../ui/label';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '../ui/card';
 import { User, Mail, Phone, Lock } from 'lucide-react';
 import Logo from '../brand/Logo';
+import GoogleSignInSection from './GoogleSignIn';
 import { toast } from 'sonner';
 import { supabase } from '../../lib/supabase';
 
@@ -83,6 +84,7 @@ export default function Register({ onRegister }: RegisterProps) {
             </CardDescription>
           </CardHeader>
           <CardContent>
+            <GoogleSignInSection label="التسجيل باستخدام Google" />
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="space-y-2">
                 <Label htmlFor="fullName">الاسم الكامل</Label>

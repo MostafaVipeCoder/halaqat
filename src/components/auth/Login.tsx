@@ -6,6 +6,7 @@ import { Label } from '../ui/label';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '../ui/card';
 import { Mail, Lock } from 'lucide-react';
 import Logo from '../brand/Logo';
+import GoogleSignInSection from './GoogleSignIn';
 import { toast } from 'sonner';
 import { supabase } from '../../lib/supabase';
 
@@ -74,6 +75,7 @@ export default function Login({ onLogin }: LoginProps) {
             </CardDescription>
           </CardHeader>
           <CardContent>
+            <GoogleSignInSection />
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="space-y-2">
                 <Label htmlFor="email">البريد الإلكتروني</Label>

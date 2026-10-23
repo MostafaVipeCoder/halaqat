@@ -27,7 +27,7 @@ export default function DashboardOverview() {
         const total = attendance.length;
         if (total === 0) return 0;
         const present = attendance.filter(a => a.present).length;
-        return (present / total) * 100;
+        return Math.round((present / total) * 100);
     }, [attendance]);
 
     // حساب المدفوعات المتأخرة الحقيقية

@@ -93,11 +93,17 @@
   .right-3:where(.mz, .mz *) {
     right: calc(var(--spacing) * 3);
   }
+  .my-4:where(.mz, .mz *) {
+    margin-block: calc(var(--spacing) * 4);
+  }
   .mt-0\.5:where(.mz, .mz *) {
     margin-top: calc(var(--spacing) * 0.5);
   }
   .mt-1:where(.mz, .mz *) {
     margin-top: calc(var(--spacing) * 1);
+  }
+  .mr-2:where(.mz, .mz *) {
+    margin-right: calc(var(--spacing) * 2);
   }
   .mb-3:where(.mz, .mz *) {
     margin-bottom: calc(var(--spacing) * 3);
@@ -352,6 +358,10 @@
   .border-4:where(.mz, .mz *) {
     border-style: var(--tw-border-style);
     border-width: 4px;
+  }
+  .border-t:where(.mz, .mz *) {
+    border-top-style: var(--tw-border-style);
+    border-top-width: 1px;
   }
   .border-b:where(.mz, .mz *) {
     border-bottom-style: var(--tw-border-style);
@@ -655,6 +665,13 @@
     &:hover {
       @media (hover: hover) {
         border-color: var(--color-emerald-300);
+      }
+    }
+  }
+  .hover\:bg-gray-50:where(.mz, .mz *) {
+    &:hover {
+      @media (hover: hover) {
+        background-color: var(--color-gray-50);
       }
     }
   }
