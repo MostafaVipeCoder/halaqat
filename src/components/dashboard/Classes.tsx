@@ -17,6 +17,7 @@ import { useGrades } from '../../hooks/useGrades';
 import { useStudents } from '../../hooks/useStudents';
 import { Badge } from '../ui/badge';
 import { Checkbox } from '../ui/checkbox';
+import { useTeachers } from '../../hooks/useStaff';
 
 // Extended Class interface for UI
 interface Class extends ClassType {
@@ -36,6 +37,8 @@ const DAYS_OF_WEEK = [
 export default function Classes() {
   const navigate = useNavigate();
   const { classes, isLoading, addClass, updateClass, deleteClass } = useClasses();
+  const teachers = useTeachers();
+  const NO_TEACHER = '__none__';
   const { students } = useStudents();
   // Fetch grades for dropdown (can be optimized later with own hook if needed reuse)
   const { grades } = useGrades();
@@ -51,6 +54,7 @@ export default function Classes() {
     grade_id: '',
     capacity: 30,
     teacher_name: '',
+    teacher_id: '',
     attendance_type: 'daily' as 'daily' | 'scheduled',
     attendance_days: [] as string[]
   });
@@ -80,7 +84,8 @@ export default function Classes() {
         stage: formData.stage,
         capacity: Number(formData.capacity),
         teacher_name: formData.teacher_name,
-        grade_id: formData.grade_id,
+        teacher_id: formData.teacher_id || null,
+        grade_id: formData.grade_id || null,
         attendance_type: formData.attendance_type,
         attendance_days: formData.attendance_days
       });
@@ -104,7 +109,8 @@ export default function Classes() {
           stage: formData.stage,
           capacity: Number(formData.capacity),
           teacher_name: formData.teacher_name,
-          grade_id: formData.grade_id,
+          teacher_id: formData.teacher_id || null,
+          grade_id: formData.grade_id || null,
           attendance_type: formData.attendance_type,
           attendance_days: formData.attendance_days
         }
@@ -135,6 +141,7 @@ export default function Classes() {
       grade_id: '',
       capacity: 30,
       teacher_name: '',
+      teacher_id: '',
       attendance_type: 'daily',
       attendance_days: []
     });
@@ -149,6 +156,7 @@ export default function Classes() {
       grade_id: cls.grade_id || '',
       capacity: cls.capacity || 30,
       teacher_name: cls.teacher_name || '',
+      teacher_id: (cls as any).teacher_id || '',
       attendance_type: cls.attendance_type || 'daily',
       attendance_days: cls.attendance_days || []
     });
@@ -241,12 +249,28 @@ export default function Classes() {
                 </div>
                 <div>
                   <Label htmlFor="add-teacher">المعلم المسؤول</Label>
+{teachers.length > 0 ? (
+                  <Select
+                    value={formData.teacher_id || NO_TEACHER}
+                    onValueChange={(value) => {
+                      const t = teachers.find(x => x.id === value);
+                      setFormData({ ...formData, teacher_id: t ? t.id : '', teacher_name: t ? (t.full_name || '') : '' });
+                    }}
+                  >
+                    <SelectTrigger id="add-teacher"><SelectValue /></SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value={NO_TEACHER}>بدون معلم</SelectItem>
+                      {teachers.map(t => <SelectItem key={t.id} value={t.id}>{t.full_name}</SelectItem>)}
+                    </SelectContent>
+                  </Select>
+                ) : (
                   <Input
                     id="add-teacher"
                     value={formData.teacher_name}
                     onChange={(e) => setFormData({ ...formData, teacher_name: e.target.value })}
-                    placeholder="اسم المعلم"
+                    placeholder="اسم المعلم (أضف المعلمين من صفحة الموظفين لربطهم بالحلقة)"
                   />
+                )}
                 </div>
               </div>
 
@@ -490,11 +514,27 @@ export default function Classes() {
               </div>
               <div>
                 <Label htmlFor="edit-teacher">المعلم المسؤول</Label>
+{teachers.length > 0 ? (
+                  <Select
+                    value={formData.teacher_id || NO_TEACHER}
+                    onValueChange={(value) => {
+                      const t = teachers.find(x => x.id === value);
+                      setFormData({ ...formData, teacher_id: t ? t.id : '', teacher_name: t ? (t.full_name || '') : '' });
+                    }}
+                  >
+                    <SelectTrigger id="edit-teacher"><SelectValue /></SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value={NO_TEACHER}>بدون معلم</SelectItem>
+                      {teachers.map(t => <SelectItem key={t.id} value={t.id}>{t.full_name}</SelectItem>)}
+                    </SelectContent>
+                  </Select>
+                ) : (
                 <Input
                   id="edit-teacher"
                   value={formData.teacher_name}
                   onChange={(e) => setFormData({ ...formData, teacher_name: e.target.value })}
                 />
+                )}
               </div>
             </div>
 

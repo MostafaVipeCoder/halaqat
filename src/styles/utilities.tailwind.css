@@ -15,4 +15,9 @@
 @source "../components/dashboard/QuickActions.tsx";
 @source "../components/dashboard/RecentActivity.tsx";
 @source "../components/auth/GoogleSignIn.tsx";
+@source "../components/dashboard/staff";
+@source "../components/dashboard/schedule";
+@source "../components/dashboard/reports";
+@source "../components/dashboard/exams";
+@source "../components/auth/RequirePermission.tsx";
 @source inline("grid-cols-4");

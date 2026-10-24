@@ -11,6 +11,9 @@ import { countsAsMemorized, gradeMeta, typeMeta } from './memorization/labels';
 import { useMemorizationPlan, useRecitationSessions } from '../../hooks/useMemorization';
 import { SURAHS, TOTAL_PAGES, computeCoverage, formatRange, surahName } from '../../lib/quran';
 import { countNoun, JUZ, SESSIONS, SURAHS_COMPLETE } from '../../lib/arabicPlural';
+import { useStudentExamResults } from '../../hooks/useExams';
+import { useCurrentProfile } from '../../hooks/useCurrentProfile';
+import { examTypeLabel, gradeClass } from './exams/examLabels';
 import type { Student } from '../../types';
 
 interface MemorizationTabProps {
@@ -29,6 +32,9 @@ const coverageColor = (percent: number) =>
 export default function MemorizationTab({ student }: MemorizationTabProps) {
     const { sessions, isLoading, addSession, isAdding, deleteSession } = useRecitationSessions({ studentId: student.id });
     const { plan, isLoading: isPlanLoading, savePlan, isSaving } = useMemorizationPlan(student.id);
+    const { results: examResults } = useStudentExamResults(student.id);
+    const { can } = useCurrentProfile();
+    const canRecord = can('recitations.record');
 
     const [isSessionDialogOpen, setIsSessionDialogOpen] = useState(false);
     const [isPlanDialogOpen, setIsPlanDialogOpen] = useState(false);
@@ -71,16 +77,18 @@ export default function MemorizationTab({ student }: MemorizationTabProps) {
 
     return (
         <div className="mz space-y-6">
-            <div className="flex flex-wrap gap-2 justify-end">
-                <Button variant="outline" onClick={() => setIsPlanDialogOpen(true)}>
-                    <Target className="h-4 w-4 ml-2" />
-                    {plan ? 'تعديل خطة الحفظ' : 'إعداد خطة الحفظ'}
-                </Button>
-                <Button onClick={() => setIsSessionDialogOpen(true)} className="bg-orange-500 hover:bg-orange-600 text-white">
-                    <Plus className="h-4 w-4 ml-2" />
-                    تسجيل تسميع
-                </Button>
-            </div>
+            {canRecord && (
+                <div className="flex flex-wrap gap-2 justify-end">
+                    <Button variant="outline" onClick={() => setIsPlanDialogOpen(true)}>
+                        <Target className="h-4 w-4 ml-2" />
+                        {plan ? 'تعديل خطة الحفظ' : 'إعداد خطة الحفظ'}
+                    </Button>
+                    <Button onClick={() => setIsSessionDialogOpen(true)} className="bg-orange-500 hover:bg-orange-600 text-white">
+                        <Plus className="h-4 w-4 ml-2" />
+                        تسجيل تسميع
+                    </Button>
+                </div>
+            )}
 
             {/* ملخص الحفظ */}
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
@@ -202,6 +210,32 @@ export default function MemorizationTab({ student }: MemorizationTabProps) {
                 </CardContent>
             </Card>
 
+            {/* نتائج الامتحانات المعتمدة */}
+            {examResults.length > 0 && (
+                <Card>
+                    <CardHeader>
+                        <CardTitle className="text-base">نتائج الامتحانات</CardTitle>
+                        <CardDescription>النتائج المعتمدة من الكونترول فقط</CardDescription>
+                    </CardHeader>
+                    <CardContent className="divide-y divide-gray-100">
+                        {[...examResults]
+                            .sort((a, b) => b.exams.exam_date.localeCompare(a.exams.exam_date))
+                            .map(r => (
+                                <div key={r.id} className="flex flex-wrap items-center justify-between gap-2 py-3">
+                                    <div>
+                                        <p className="font-medium text-gray-900">{r.exams.title}</p>
+                                        <p className="text-xs text-gray-500">{examTypeLabel(r.exams.exam_type)} · {r.exams.exam_date}</p>
+                                    </div>
+                                    <div className="flex items-center gap-2">
+                                        {!r.is_absent && <span className="text-sm text-gray-700">{Number(r.total)} ({Number(r.percent)}%)</span>}
+                                        <Badge variant="outline" className={gradeClass(r.grade)}>{r.grade}</Badge>
+                                    </div>
+                                </div>
+                            ))}
+                    </CardContent>
+                </Card>
+            )}
+
             {/* سجل التسميع */}
             <Card>
                 <CardHeader>
@@ -248,9 +282,11 @@ export default function MemorizationTab({ student }: MemorizationTabProps) {
                                                 </td>
                                                 <td className="px-4 py-3"><Badge variant="outline" className={gradeMeta(s.grade).className}>{gradeMeta(s.grade).label}</Badge></td>
                                                 <td className="px-4 py-3">
-                                                    <Button variant="ghost" size="sm" onClick={() => handleDelete(s.id, label)} aria-label="حذف">
-                                                        <Trash2 className="h-4 w-4 text-red-500" />
-                                                    </Button>
+                                                    {canRecord && (
+                                                        <Button variant="ghost" size="sm" onClick={() => handleDelete(s.id, label)} aria-label="حذف">
+                                                            <Trash2 className="h-4 w-4 text-red-500" />
+                                                        </Button>
+                                                    )}
                                                 </td>
                                             </tr>
                                         );

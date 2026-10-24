@@ -23,10 +23,12 @@ export const settingsService = {
         const { data: { user } } = await supabase.auth.getUser();
         if (!user) throw new Error('User not authenticated');
 
+        // إعدادات مدرسة المستخدم (المدير أو الموظف) — RLS يقصر القراءة على مدرسته
+        const { data: profile } = await supabase.from('profiles').select('school_id').eq('id', user.id).maybeSingle();
         const { data, error } = await supabase
             .from('school_settings')
             .select('*')
-            .eq('user_id', user.id)
+            .eq(profile?.school_id ? 'school_id' : 'user_id', profile?.school_id ?? user.id)
             .maybeSingle();
 
         if (error && error.code !== 'PGRST116') { // PGRST116 is 'no rows returned'
@@ -67,10 +69,11 @@ export const settingsService = {
         const { data: { user } } = await supabase.auth.getUser();
         if (!user) throw new Error('User not authenticated');
 
+        const { data: profile } = await supabase.from('profiles').select('school_id').eq('id', user.id).single();
         const { data, error } = await supabase
             .from('school_settings')
             .update({ ...settings, updated_at: new Date().toISOString() })
-            .eq('user_id', user.id)
+            .eq('school_id', profile?.school_id)
             .select()
             .single();
 

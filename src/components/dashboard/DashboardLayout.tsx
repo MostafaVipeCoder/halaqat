@@ -4,8 +4,10 @@ import { Button } from '../ui/button';
 import {
   Users, School, Award, FileText, LogOut, Menu, User,
   DollarSign, QrCode, Settings, LayoutDashboard, ChevronDown, ChevronRight,
-  BarChart3, Wallet, ShieldAlert, BookOpen
+  BarChart3, Wallet, ShieldAlert, BookOpen, UserCog, CalendarDays, GraduationCap, ClipboardList, ShieldOff
 } from 'lucide-react';
+import { useCurrentProfile } from '../../hooks/useCurrentProfile';
+import { staffTypeLabel, type Permission } from '../../lib/permissions';
 import Logo from '../brand/Logo';
 import ProtectedOverlay from './ProtectedOverlay';
 import { useSettings } from '../../hooks/useSettings';
@@ -29,12 +31,15 @@ interface MenuItem {
   name: string;
   icon: any;
   path: string;
+  /** يظهر لمن يملك أي صلاحية منها (بدونها يظهر للجميع) */
+  anyOf?: Permission[];
 }
 
 export default function DashboardLayout({ onLogout, isVerified, userEmail, onVerify }: DashboardLayoutProps) {
   const location = useLocation();
   const [isSheetOpen, setIsSheetOpen] = useState(false);
-  const [expandedSections, setExpandedSections] = useState<string[]>(['الرئيسية', 'التحفيظ', 'إدارة الطلاب']);
+  const [expandedSections, setExpandedSections] = useState<string[]>(['الرئيسية', 'التحفيظ', 'إدارة الطلاب', 'المعلمون والامتحانات']);
+  const { profile, canAny, isManager, isTeacher, isDeactivated } = useCurrentProfile();
 
   const menuSections: MenuSection[] = [
     {
@@ -46,40 +51,59 @@ export default function DashboardLayout({ onLogout, isVerified, userEmail, onVer
     {
       title: 'التحفيظ',
       items: [
-        { name: 'الحفظ والتسميع', icon: BookOpen, path: '/dashboard/recitations' },
+        { name: 'الحفظ والتسميع', icon: BookOpen, path: '/dashboard/recitations', anyOf: ['recitations.record', 'reports.view'] },
       ]
     },
     {
       title: 'إدارة الطلاب',
       items: [
-        { name: 'جميع الطلاب', icon: Users, path: '/dashboard/students' },
-        { name: 'الطلاب المفصولين', icon: ShieldAlert, path: '/dashboard/students/expelled' },
-        { name: 'الحلقات', icon: School, path: '/dashboard/classes' },
-        { name: 'المراحل الدراسية', icon: Award, path: '/dashboard/grades' },
+        { name: 'جميع الطلاب', icon: Users, path: '/dashboard/students', anyOf: ['students.view', 'students.manage'] },
+        { name: 'الطلاب المفصولين', icon: ShieldAlert, path: '/dashboard/students/expelled', anyOf: ['students.manage'] },
+        { name: 'الحلقات', icon: School, path: '/dashboard/classes', anyOf: ['classes.manage', 'students.view'] },
+        { name: 'المراحل الدراسية', icon: Award, path: '/dashboard/grades', anyOf: ['classes.manage'] },
+      ]
+    },
+    {
+      title: 'المعلمون والامتحانات',
+      items: [
+        { name: isTeacher ? 'جدولي' : 'جدول المعلمين', icon: CalendarDays, path: '/dashboard/schedule', anyOf: ['classes.manage', 'students.view', 'recitations.record', 'reports.view'] },
+        { name: 'تقارير المعلمين', icon: GraduationCap, path: '/dashboard/teacher-reports', anyOf: ['reports.view'] },
+        { name: 'الامتحانات والكونترول', icon: ClipboardList, path: '/dashboard/exams', anyOf: ['exams.grade', 'exams.manage', 'reports.view'] },
       ]
     },
     {
       title: 'المالية',
       items: [
-        { name: 'المدفوعات', icon: DollarSign, path: '/dashboard/payments' },
-        { name: 'التقارير المالية', icon: Wallet, path: '/dashboard/financial-reports' },
+        { name: 'المدفوعات', icon: DollarSign, path: '/dashboard/payments', anyOf: ['finance.view', 'finance.manage'] },
+        { name: 'التقارير المالية', icon: Wallet, path: '/dashboard/financial-reports', anyOf: ['finance.view', 'finance.manage'] },
       ]
     },
     {
       title: 'التقارير',
       items: [
-        { name: 'تقارير الحضور', icon: FileText, path: '/dashboard/reports' },
-        { name: 'تقارير الأداء', icon: BarChart3, path: '/dashboard/performance' },
+        { name: 'تقارير الحضور', icon: FileText, path: '/dashboard/reports', anyOf: ['reports.view', 'attendance.record'] },
+        { name: 'تقارير الأداء', icon: BarChart3, path: '/dashboard/performance', anyOf: ['reports.view'] },
       ]
     },
     {
       title: 'الأدوات',
       items: [
-        { name: 'مسح QR', icon: QrCode, path: '/dashboard/qr-scanner' },
-        { name: 'إعدادات المدرسة', icon: Settings, path: '/dashboard/settings' },
+        { name: 'مسح QR', icon: QrCode, path: '/dashboard/qr-scanner', anyOf: ['attendance.record'] },
+        { name: 'الموظفون والصلاحيات', icon: UserCog, path: '/dashboard/staff', anyOf: ['staff.manage'] },
+        { name: 'إعدادات المدرسة', icon: Settings, path: '/dashboard/settings', anyOf: ['settings.manage'] },
       ]
     },
   ];
+
+  // عنوان الصفحة: أطول مسار في القائمة يطابق الرابط الحالي (يشمل الصفحات الفرعية مثل /exams/:id)
+  const pageTitle = menuSections.flatMap(s => s.items)
+    .filter(item => location.pathname === item.path || location.pathname.startsWith(item.path + '/'))
+    .sort((x, y) => y.path.length - x.path.length)[0]?.name || 'لوحة التحكم';
+
+  // كل موظف يرى ما تسمح به صلاحياته فقط
+  const visibleSections = menuSections
+    .map(section => ({ ...section, items: section.items.filter(item => !item.anyOf || canAny(...item.anyOf)) }))
+    .filter(section => section.items.length > 0);
 
   const toggleSection = (title: string) => {
     setExpandedSections(prev =>
@@ -102,7 +126,7 @@ export default function DashboardLayout({ onLogout, isVerified, userEmail, onVer
 
       {/* Navigation */}
       <ScrollArea className="flex-1 px-2 py-4">
-        {menuSections.map((section) => (
+        {visibleSections.map((section) => (
           <div key={section.title} className="space-y-1 mb-2">
             {/* Section Header */}
             <button
@@ -154,13 +178,16 @@ export default function DashboardLayout({ onLogout, isVerified, userEmail, onVer
           </div>
           <div className="flex-1 min-w-0">
             <p className="text-sm text-white truncate">
-              {userEmail || 'المستخدم'}
+              {profile?.full_name || userEmail || 'المستخدم'}
+            </p>
+            <p className="text-xs text-gray-300 truncate">
+              {profile ? (isManager ? 'مدير المدرسة' : staffTypeLabel(profile.staff_type)) : ''}
             </p>
             <div className="flex items-center gap-2">
               <p className={`text-[10px] ${isVerified ? 'text-green-400' : 'text-orange-400'}`}>
                 {isVerified ? 'حساب مفعل' : 'في انتظار التفعيل'}
               </p>
-              {isVerified && (
+              {isVerified && isManager && (
                 <Badge variant="outline" className="text-[9px] py-0 h-4 border-orange-500/50 text-orange-400 bg-transparent">
                   {settings.subscription_type}
                 </Badge>
@@ -208,20 +235,14 @@ export default function DashboardLayout({ onLogout, isVerified, userEmail, onVer
           {/* Page Title (Mobile) */}
           <div className="lg:hidden flex-1 text-center">
             <h1 className="text-lg font-semibold text-gray-900 truncate px-2">
-              {menuSections.flatMap(s => s.items).find(item =>
-                location.pathname === item.path ||
-                (item.path === '/dashboard/students' && location.pathname === '/dashboard')
-              )?.name || 'لوحة التحكم'}
+              {pageTitle}
             </h1>
           </div>
 
           {/* Desktop Title / Actions */}
           <div className="hidden lg:flex flex-1 items-center">
             <h1 className="text-2xl font-bold text-gray-900">
-              {menuSections.flatMap(s => s.items).find(item =>
-                location.pathname === item.path ||
-                (item.path === '/dashboard/students' && location.pathname === '/dashboard')
-              )?.name || 'لوحة التحكم'}
+              {pageTitle}
             </h1>
           </div>
 
@@ -238,7 +259,15 @@ export default function DashboardLayout({ onLogout, isVerified, userEmail, onVer
         {/* Page Content */}
         <main className="p-4 lg:p-8 overflow-x-hidden">
           <div className="max-w-7xl mx-auto space-y-6">
-            <Outlet />
+            {isDeactivated ? (
+              <div className="flex flex-col items-center justify-center text-center py-20 gap-3">
+                <ShieldOff className="h-12 w-12 text-gray-300" />
+                <h2 className="text-xl font-bold">تم إيقاف حسابك في المدرسة</h2>
+                <p className="text-gray-600">تواصل مع مدير المدرسة لإعادة تفعيل حسابك.</p>
+              </div>
+            ) : (
+              <Outlet />
+            )}
           </div>
         </main>
       </div>

@@ -29,3 +29,4 @@ export const PAGES: NounForms = { zero: 'لا صفحات', one: 'صفحة واح
 export const SESSIONS: NounForms = { zero: 'لا جلسات', one: 'جلسة واحدة', two: 'جلستان', few: 'جلسات', many: 'جلسة' };
 export const SURAHS_COMPLETE: NounForms = { zero: 'لا سور مكتملة', one: 'سورة واحدة مكتملة', two: 'سورتان مكتملتان', few: 'سور مكتملة', many: 'سورة مكتملة' };
 export const JUZ: NounForms = { zero: 'لا أجزاء', one: 'جزء واحد', two: 'جزءان', few: 'أجزاء', many: 'جزءًا' };
+export const STUDENTS: NounForms = { zero: 'لا طلاب', one: 'طالب واحد', two: 'طالبان', few: 'طلاب', many: 'طالبًا' };

@@ -38,7 +38,8 @@ export interface Class {
     stage: string;
     capacity: number;
     teacher_name?: string;
-    grade_id?: string;
+    teacher_id?: string | null;
+    grade_id?: string | null;
     slug?: string;
     attendance_type?: 'daily' | 'scheduled';
     attendance_days?: string[];
@@ -136,6 +137,62 @@ export interface MemorizationPlan {
     notes?: string | null;
     created_at: string;
     updated_at: string;
+}
+
+// Exam Types (الامتحانات والكونترول)
+export type ExamStatus = 'draft' | 'grading' | 'review' | 'approved';
+export type ExamType = 'monthly' | 'juz_completion' | 'term' | 'placement' | 'khatma';
+
+export interface ExamCriterion {
+    key: string;
+    label: string;
+    max: number;
+}
+
+export interface Exam {
+    id: string;
+    school_id: string;
+    title: string;
+    exam_type: ExamType;
+    exam_date: string;
+    class_ids: string[];
+    scope: string | null;
+    criteria: ExamCriterion[];
+    pass_percent: number;
+    status: ExamStatus;
+    created_by: string | null;
+    approved_by: string | null;
+    approved_at: string | null;
+    created_at: string;
+}
+
+export interface ExamResult {
+    id: string;
+    exam_id: string;
+    student_id: string;
+    scores: Record<string, number>;
+    is_absent: boolean;
+    total: number;
+    percent: number;
+    grade: string | null;
+    notes: string | null;
+    graded_by: string | null;
+    graded_at: string;
+}
+
+export interface ExamResultChange {
+    id: string;
+    result_id: string;
+    student_id: string;
+    exam_status: ExamStatus;
+    old_total: number | null;
+    new_total: number | null;
+    old_absent: boolean | null;
+    new_absent: boolean | null;
+    reason: string | null;
+    changed_at: string;
+    students?: { name: string } | null;
+    changer?: { full_name: string | null } | null;
 }
 
 // Admin Types

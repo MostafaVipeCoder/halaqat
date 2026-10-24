@@ -16,6 +16,7 @@ import { RECITATION_GRADES, RECITATION_TYPES, gradeMeta, typeMeta } from './memo
 import { useRecitationSessions } from '../../hooks/useMemorization';
 import { useStudents } from '../../hooks/useStudents';
 import { useClasses } from '../../hooks/useClasses';
+import { useCurrentProfile } from '../../hooks/useCurrentProfile';
 import { formatRange } from '../../lib/quran';
 import type { RecitationSession } from '../../types';
 
@@ -31,6 +32,8 @@ export default function Recitations() {
     const fromDate = format(subDays(new Date(), Number(rangeDays)), 'yyyy-MM-dd');
 
     const { sessions, isLoading, addSession, isAdding, deleteSession } = useRecitationSessions({ fromDate });
+    const { can } = useCurrentProfile();
+    const canRecord = can('recitations.record');
     const { students: rawStudents, isLoading: isStudentsLoading } = useStudents();
     const { classes } = useClasses();
 
@@ -105,10 +108,12 @@ export default function Recitations() {
                     <h1 className="text-2xl font-bold text-gray-900">الحفظ والتسميع</h1>
                     <p className="text-gray-500 mt-1">متابعة تسميع الطلاب اليومي والحفظ الجديد والمراجعة</p>
                 </div>
-                <Button onClick={() => openDialog()} className="bg-orange-500 hover:bg-orange-600 text-white">
-                    <Plus className="h-4 w-4 ml-2" />
-                    تسجيل تسميع
-                </Button>
+                {canRecord && (
+                    <Button onClick={() => openDialog()} className="bg-orange-500 hover:bg-orange-600 text-white">
+                        <Plus className="h-4 w-4 ml-2" />
+                        تسجيل تسميع
+                    </Button>
+                )}
             </div>
 
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
@@ -183,11 +188,13 @@ export default function Recitations() {
                                                         )}
                                                     </div>
                                                 </div>
-                                                <Button size="sm" variant={recited.length ? 'outline' : 'default'} onClick={() => openDialog(student.id)}
-                                                    className={recited.length ? '' : 'bg-orange-500 hover:bg-orange-600 text-white'}>
-                                                    <Plus className="h-4 w-4 ml-1" />
-                                                    {recited.length ? 'تسميع آخر' : 'سجّل التسميع'}
-                                                </Button>
+                                                {canRecord && (
+                                                    <Button size="sm" variant={recited.length ? 'outline' : 'default'} onClick={() => openDialog(student.id)}
+                                                        className={recited.length ? '' : 'bg-orange-500 hover:bg-orange-600 text-white'}>
+                                                        <Plus className="h-4 w-4 ml-1" />
+                                                        {recited.length ? 'تسميع آخر' : 'سجّل التسميع'}
+                                                    </Button>
+                                                )}
                                             </div>
                                         );
                                     })}
@@ -275,9 +282,11 @@ export default function Recitations() {
                                                     <TableCell>{s.memorization_errors} / {s.tashkeel_errors} / {s.tajweed_errors}</TableCell>
                                                     <TableCell><Badge variant="outline" className={gradeMeta(s.grade).className}>{gradeMeta(s.grade).label}</Badge></TableCell>
                                                     <TableCell>
-                                                        <Button variant="ghost" size="sm" onClick={() => handleDelete(s)} aria-label="حذف">
-                                                            <Trash2 className="h-4 w-4 text-red-500" />
-                                                        </Button>
+                                                        {canRecord && (
+                                                            <Button variant="ghost" size="sm" onClick={() => handleDelete(s)} aria-label="حذف">
+                                                                <Trash2 className="h-4 w-4 text-red-500" />
+                                                            </Button>
+                                                        )}
                                                     </TableCell>
                                                 </TableRow>
                                             ))}

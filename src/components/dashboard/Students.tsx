@@ -25,6 +25,7 @@ import { classService } from '../../services/classService';
 import type { Student as StudentType, Class } from '../../types';
 import { supabase } from '../../lib/supabase';
 import { useStudents } from '../../hooks/useStudents';
+import { useCurrentProfile } from '../../hooks/useCurrentProfile';
 import { useClasses } from '../../hooks/useClasses';
 import StudentCard from './StudentCard';
 import StudentFilters from './StudentFilters';
@@ -48,6 +49,8 @@ interface AttendanceRecord {
 
 export default function Students() {
   const { students: rawStudents, isLoading, addStudent, updateStudent, deleteStudent } = useStudents();
+  const { can } = useCurrentProfile();
+  const canManageStudents = can('students.manage');
   const students = rawStudents as Student[];
   const { classes: availableClasses } = useClasses();
   const navigate = useNavigate();
@@ -249,10 +252,12 @@ export default function Students() {
           <h1 className="text-2xl font-bold text-gray-900">جميع الطلاب</h1>
           <p className="text-gray-500">عرض وإدارة جميع الطلاب المسجلين في النظام</p>
         </div>
-        <Button onClick={() => { resetForm(); setIsAddDialogOpen(true); }} className="bg-orange-500 hover:bg-orange-600 text-white">
-          <Plus className="ml-2 h-4 w-4" />
-          إضافة طالب جديد
-        </Button>
+        {canManageStudents && (
+          <Button onClick={() => { resetForm(); setIsAddDialogOpen(true); }} className="bg-orange-500 hover:bg-orange-600 text-white">
+            <Plus className="ml-2 h-4 w-4" />
+            إضافة طالب جديد
+          </Button>
+        )}
       </div>
 
       {/* Stats Cards */}

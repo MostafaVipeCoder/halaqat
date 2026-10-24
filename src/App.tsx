@@ -4,6 +4,8 @@ import LoadingSpinner from './components/ui/loading-spinner';
 import { supabase } from './lib/supabase';
 import { Session } from '@supabase/supabase-js';
 import { Toaster } from './components/ui/sonner';
+import RequirePermission from './components/auth/RequirePermission';
+import type { Permission } from './lib/permissions';
 
 // Lazy load components
 const Login = lazy(() => import('./components/auth/Login'));
@@ -32,6 +34,13 @@ const DashboardOverview = lazy(() => import('./components/dashboard/DashboardOve
 const FinancialReports = lazy(() => import('./components/dashboard/FinancialReports'));
 const PerformanceReports = lazy(() => import('./components/dashboard/PerformanceReports'));
 const Recitations = lazy(() => import('./components/dashboard/Recitations'));
+const Staff = lazy(() => import('./components/dashboard/staff/Staff'));
+const TeacherSchedule = lazy(() => import('./components/dashboard/schedule/TeacherSchedule'));
+const TeacherReports = lazy(() => import('./components/dashboard/reports/TeacherReports'));
+const Exams = lazy(() => import('./components/dashboard/exams/Exams'));
+const ExamDetails = lazy(() => import('./components/dashboard/exams/ExamDetails'));
+
+const guard = (anyOf: Permission[], el: React.ReactNode) => <RequirePermission anyOf={anyOf}>{el}</RequirePermission>;
 
 // Auth Guard Components
 const ProtectedRoute = ({
@@ -157,19 +166,24 @@ function App() {
             >
               <Route element={<DashboardLayout onLogout={handleLogout} isVerified={isVerified} userEmail={userEmail} onVerify={() => setIsVerified(true)} />}>
                 <Route index element={<DashboardOverview />} />
-                <Route path="students" element={<Students />} />
-                <Route path="students/expelled" element={<ExpelledStudents />} />
-                <Route path="students/:id" element={<StudentProfile />} />
-                <Route path="classes" element={<Classes />} />
-                <Route path="classes/:id" element={<ClassDetails />} />
-                <Route path="grades" element={<Grades />} />
-                <Route path="recitations" element={<Recitations />} />
-                <Route path="payments" element={<Payments />} />
-                <Route path="reports" element={<Reports />} />
-                <Route path="performance" element={<PerformanceReports />} />
-                <Route path="financial-reports" element={<FinancialReports />} />
-                <Route path="qr-scanner" element={<QRScanner />} />
-                <Route path="settings" element={<Settings />} />
+                <Route path="students" element={guard(['students.view', 'students.manage'], <Students />)} />
+                <Route path="students/expelled" element={guard(['students.view', 'students.manage'], <ExpelledStudents />)} />
+                <Route path="students/:id" element={guard(['students.view', 'students.manage'], <StudentProfile />)} />
+                <Route path="classes" element={guard(['classes.manage', 'students.view'], <Classes />)} />
+                <Route path="classes/:id" element={guard(['classes.manage', 'students.view'], <ClassDetails />)} />
+                <Route path="grades" element={guard(['classes.manage'], <Grades />)} />
+                <Route path="recitations" element={guard(['recitations.record', 'reports.view'], <Recitations />)} />
+                <Route path="payments" element={guard(['finance.view', 'finance.manage'], <Payments />)} />
+                <Route path="reports" element={guard(['reports.view', 'attendance.record'], <Reports />)} />
+                <Route path="performance" element={guard(['reports.view'], <PerformanceReports />)} />
+                <Route path="financial-reports" element={guard(['finance.view', 'finance.manage'], <FinancialReports />)} />
+                <Route path="qr-scanner" element={guard(['attendance.record'], <QRScanner />)} />
+                <Route path="settings" element={guard(['settings.manage'], <Settings />)} />
+                <Route path="staff" element={guard(['staff.manage'], <Staff />)} />
+                <Route path="schedule" element={guard(['classes.manage', 'students.view', 'recitations.record', 'reports.view'], <TeacherSchedule />)} />
+                <Route path="teacher-reports" element={guard(['reports.view'], <TeacherReports />)} />
+                <Route path="exams" element={guard(['exams.grade', 'exams.manage', 'reports.view'], <Exams />)} />
+                <Route path="exams/:id" element={guard(['exams.grade', 'exams.manage', 'reports.view'], <ExamDetails />)} />
               </Route>
             </Route>
 
